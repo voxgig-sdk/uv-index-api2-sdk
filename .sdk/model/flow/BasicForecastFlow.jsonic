@@ -1,0 +1,22 @@
+# BasicForecastFlow
+
+main: kit: flow: BasicForecastFlow:
+{
+  entity: "forecast",
+  kind: "basic",
+  name: "BasicForecastFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "forecast_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicForecastFlow"
+}

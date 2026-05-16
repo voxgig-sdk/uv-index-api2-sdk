@@ -1,0 +1,14 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 1
+  metrics: count: path: 1
+  metrics: count: method: 1
+
+  entity: forecast: {
+    path: "/api/v1/forecast": {
+      op: list: method: *GET
+    }
+  }
+
+}

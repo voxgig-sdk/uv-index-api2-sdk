@@ -1,0 +1,28 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        email: "info@uvindexapi.com"
+        url: "https://uvindexapi.com"
+      }
+      description: "Get current and forecasted UV Index data for any location worldwide."
+      license: {
+        name: "Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)"
+        url: "https://creativecommons.org/licenses/by-sa/4.0/"
+      }
+      servers: [
+        {
+          url: "https://uvindexapi.com"
+        }
+      ]
+      termsOfService: "https://uvindexapi.com/terms"
+      title: "UV Index API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

@@ -1,0 +1,58 @@
+{
+  "existing": {
+    "forecast": {
+      "FORECAST00": {
+        "daily": [],
+        "hourly": [],
+        "latitude": 102,
+        "longitude": 103,
+        "meta": {},
+        "now": {},
+        "ok": true,
+        "timezone": {},
+        "today": {},
+        "tomorrow": {}
+      },
+      "FORECAST01": {
+        "daily": [],
+        "hourly": [],
+        "latitude": 202,
+        "longitude": 203,
+        "meta": {},
+        "now": {},
+        "ok": true,
+        "timezone": {},
+        "today": {},
+        "tomorrow": {}
+      },
+      "FORECAST02": {
+        "daily": [],
+        "hourly": [],
+        "latitude": 302,
+        "longitude": 303,
+        "meta": {},
+        "now": {},
+        "ok": true,
+        "timezone": {},
+        "today": {},
+        "tomorrow": {}
+      }
+    }
+  },
+  "new": {
+    "forecast": {
+      "forecast_ref01": {
+        "daily": [],
+        "hourly": [],
+        "latitude": 402,
+        "longitude": 403,
+        "meta": {},
+        "now": {},
+        "ok": true,
+        "timezone": {},
+        "today": {},
+        "tomorrow": {}
+      }
+    }
+  }
+}

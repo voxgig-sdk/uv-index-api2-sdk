@@ -1,0 +1,408 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "UV Index API",
+    "description": "Get current and forecasted UV Index data for any location worldwide.",
+    "version": "1.0.0",
+    "contact": {
+      "email": "info@uvindexapi.com",
+      "url": "https://uvindexapi.com"
+    },
+    "license": {
+      "name": "Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+    },
+    "termsOfService": "https://uvindexapi.com/terms"
+  },
+  "servers": [
+    {
+      "url": "https://uvindexapi.com"
+    }
+  ],
+  "paths": {
+    "/api/v1/forecast": {
+      "get": {
+        "summary": "Get UV Index Forecast",
+        "description": "Returns current UV Index, today and tomorrow maximum values, and optional daily and hourly forecast data for a given location.",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "minimum": -90,
+              "maximum": 90,
+              "description": "Latitude coordinate in decimal degrees.",
+              "error": "\"latitude\" must be a number between -90 and 90.",
+              "type": "number"
+            }
+          },
+          {
+            "name": "longitude",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "minimum": -180,
+              "maximum": 180,
+              "description": "Longitude coordinate in decimal degrees.",
+              "error": "\"longitude\" must be a number between -180 and 180.",
+              "type": "number"
+            }
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "IANA timezone identifier (e.g., \"America/New_York\"), \"UTC\", or \"Auto\" to infer from coordinates. Defaults to \"UTC\".",
+              "type": "string"
+            }
+          },
+          {
+            "name": "daily",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Include daily UV Index forecast data.",
+              "error": "\"daily\" must be a boolean value (\"true\" or \"false\").",
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "hourly",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "description": "Include hourly UV Index forecast data.",
+              "error": "\"hourly\" must be a boolean value (\"true\" or \"false\").",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response for status 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "latitude",
+                    "longitude",
+                    "timezone",
+                    "now",
+                    "today",
+                    "tomorrow",
+                    "meta"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": true,
+                      "type": "boolean"
+                    },
+                    "latitude": {
+                      "description": "Latitude coordinate in decimal degrees.",
+                      "type": "number"
+                    },
+                    "longitude": {
+                      "description": "Longitude coordinate in decimal degrees.",
+                      "type": "number"
+                    },
+                    "timezone": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "properties": {
+                        "id": {
+                          "description": "IANA timezone identifier used for all times.",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "Human-readable timezone name.",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "now": {
+                      "type": "object",
+                      "required": [
+                        "date",
+                        "time",
+                        "uv_index"
+                      ],
+                      "properties": {
+                        "date": {
+                          "description": "Current date in YYYY-MM-DD format.",
+                          "type": "string"
+                        },
+                        "time": {
+                          "description": "Current time in HH:mm:ss format.",
+                          "type": "string"
+                        },
+                        "uv_index": {
+                          "description": "Current UV Index value.",
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "today": {
+                      "type": "object",
+                      "required": [
+                        "date",
+                        "max"
+                      ],
+                      "properties": {
+                        "date": {
+                          "description": "Today's date in YYYY-MM-DD format.",
+                          "type": "string"
+                        },
+                        "max": {
+                          "type": "object",
+                          "required": [
+                            "time",
+                            "uv_index"
+                          ],
+                          "properties": {
+                            "time": {
+                              "description": "Time of maximum UV Index today in HH:mm:ss format.",
+                              "type": "string"
+                            },
+                            "uv_index": {
+                              "description": "Maximum UV Index value for today.",
+                              "type": "number"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "tomorrow": {
+                      "type": "object",
+                      "required": [
+                        "date",
+                        "max"
+                      ],
+                      "properties": {
+                        "date": {
+                          "description": "Tomorrow's date in YYYY-MM-DD format.",
+                          "type": "string"
+                        },
+                        "max": {
+                          "type": "object",
+                          "required": [
+                            "time",
+                            "uv_index"
+                          ],
+                          "properties": {
+                            "time": {
+                              "description": "Time of maximum UV Index tomorrow in HH:mm:ss format.",
+                              "type": "string"
+                            },
+                            "uv_index": {
+                              "description": "Maximum UV Index value for tomorrow.",
+                              "type": "number"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "daily": {
+                      "description": "Daily UV Index forecast data.",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "date",
+                          "max"
+                        ],
+                        "properties": {
+                          "date": {
+                            "description": "Date in YYYY-MM-DD format.",
+                            "type": "string"
+                          },
+                          "max": {
+                            "type": "object",
+                            "required": [
+                              "time",
+                              "uv_index"
+                            ],
+                            "properties": {
+                              "time": {
+                                "description": "Time of maximum UV Index for the day in HH:mm:ss format.",
+                                "type": "string"
+                              },
+                              "uv_index": {
+                                "description": "Maximum UV Index value for the day.",
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "hourly": {
+                      "description": "Hourly UV Index forecast data.",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "date",
+                          "time",
+                          "uv_index"
+                        ],
+                        "properties": {
+                          "date": {
+                            "description": "Date for this hour in YYYY-MM-DD format.",
+                            "type": "string"
+                          },
+                          "time": {
+                            "description": "Time for this hour in HH:mm:ss format.",
+                            "type": "string"
+                          },
+                          "uv_index": {
+                            "description": "UV Index value for this hour.",
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "type": "object",
+                      "required": [
+                        "source",
+                        "license"
+                      ],
+                      "properties": {
+                        "source": {
+                          "type": "object",
+                          "required": [
+                            "attribution",
+                            "url"
+                          ],
+                          "properties": {
+                            "attribution": {
+                              "description": "Suggested attribution text.",
+                              "type": "string"
+                            },
+                            "url": {
+                              "description": "Source URL.",
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "license": {
+                          "type": "object",
+                          "required": [
+                            "id",
+                            "name",
+                            "url"
+                          ],
+                          "properties": {
+                            "id": {
+                              "description": "License identifier in SPDX format.",
+                              "type": "string"
+                            },
+                            "name": {
+                              "description": "License name.",
+                              "type": "string"
+                            },
+                            "url": {
+                              "description": "License URL.",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Response for status 400",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "message"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": false,
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "description": "Human-readable error message.",
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Response for status 500",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "message"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": false,
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "description": "Human-readable error message.",
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Response for status 503",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "ok",
+                    "message"
+                  ],
+                  "properties": {
+                    "ok": {
+                      "const": false,
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "description": "Human-readable error message.",
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "operationId": "getApiV1Forecast"
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}
