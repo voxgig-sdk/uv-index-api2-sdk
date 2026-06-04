@@ -28,16 +28,13 @@ package main
 
 import (
     "fmt"
-    "os"
 
     sdk "github.com/voxgig-sdk/uv-index-api2-sdk/go"
     "github.com/voxgig-sdk/uv-index-api2-sdk/go/core"
 )
 
 func main() {
-    client := sdk.NewUvIndexApi2SDK(map[string]any{
-        "apikey": os.Getenv("UV-INDEX-API2_APIKEY"),
-    })
+    client := sdk.NewUvIndexApi2SDK(map[string]any{})
 ```
 
 ### 2. List forecasts
@@ -140,7 +137,6 @@ Create a `.env.local` file at the project root:
 
 ```
 UV-INDEX-API2_TEST_LIVE=TRUE
-UV-INDEX-API2_APIKEY=<your-key>
 ```
 
 Then run:
@@ -162,7 +158,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `"apikey"` | `string` | API key for authentication. |
 | `"base"` | `string` | Base URL of the API server. |
 | `"prefix"` | `string` | URL path prefix prepended to all requests. |
 | `"suffix"` | `string` | URL path suffix appended to all requests. |

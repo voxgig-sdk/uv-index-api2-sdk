@@ -68,14 +68,12 @@ function forecast_direct_setup($mockres)
     $env = Runner::env_override([
         "UVINDEXAPI__TEST_FORECAST_ENTID" => [],
         "UVINDEXAPI__TEST_LIVE" => "FALSE",
-        "UVINDEXAPI__APIKEY" => "NONE",
     ]);
 
     $live = $env["UVINDEXAPI__TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["UVINDEXAPI__APIKEY"],
         ];
         $client = new UvIndexApi2SDK($merged_opts);
         return [

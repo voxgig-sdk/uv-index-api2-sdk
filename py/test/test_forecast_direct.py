@@ -61,14 +61,12 @@ def _forecast_direct_setup(mockres):
     env = runner.env_override({
         "UVINDEXAPI__TEST_FORECAST_ENTID": {},
         "UVINDEXAPI__TEST_LIVE": "FALSE",
-        "UVINDEXAPI__APIKEY": "NONE",
     })
 
     live = env.get("UVINDEXAPI__TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("UVINDEXAPI__APIKEY"),
         }
         client = UvIndexApi2SDK(merged_opts)
         return {

@@ -92,7 +92,6 @@ def _forecast_basic_setup(extra):
         "UVINDEXAPI__TEST_FORECAST_ENTID": idmap,
         "UVINDEXAPI__TEST_LIVE": "FALSE",
         "UVINDEXAPI__TEST_EXPLAIN": "FALSE",
-        "UVINDEXAPI__APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +102,6 @@ def _forecast_basic_setup(extra):
     if env.get("UVINDEXAPI__TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("UVINDEXAPI__APIKEY"),
             },
             extra or {},
         ])
