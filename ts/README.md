@@ -10,7 +10,7 @@ The TypeScript SDK for the UvIndexApi2 API — a type-safe, entity-oriented clie
 
 ## Install
 ```bash
-npm install uv-index-api2
+npm install @voxgig-sdk/uv-index-api2
 ```
 ## Tutorial: your first API call
 

@@ -10,13 +10,13 @@ The Ruby SDK for the UvIndexApi2 API — an entity-oriented client using idiomat
 
 ## Install
 ```bash
-gem install uv-index-api2-sdk
+gem install voxgig-sdk-uv-index-api2
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "uv-index-api2-sdk"
+gem "voxgig-sdk-uv-index-api2"
 ```
 
 Then run:

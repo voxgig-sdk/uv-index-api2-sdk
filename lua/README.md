@@ -10,7 +10,7 @@ The Lua SDK for the UvIndexApi2 API — an entity-oriented client using Lua conv
 
 ## Install
 ```bash
-luarocks install uv-index-api2-sdk
+luarocks install voxgig-sdk-uv-index-api2
 ```
 
 If the module is not yet published, add the source directory to
