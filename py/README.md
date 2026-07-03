@@ -1,6 +1,11 @@
 # UvIndexApi2 Python SDK
 
-The Python SDK for the UvIndexApi2 API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the UvIndexApi2 API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from uvindexapi2_sdk import UvIndexApi2SDK
 
-client = UvIndexApi2SDK({})
+client = UvIndexApi2SDK({
+    "apikey": os.environ.get("UV-INDEX-API2_APIKEY"),
+})
 ```
 
 ### 2. List forecasts
 
 ```python
-result, err = client.Forecast(None).list(None, None)
+result, err = client.Forecast().list()
 if err:
     raise Exception(err)
 
@@ -83,11 +91,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = UvIndexApi2SDK.test(None, None)
+client = UvIndexApi2SDK.test()
 
-result, err = client.UvIndexApi2(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.UvIndexApi2().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -118,6 +124,7 @@ Create a `.env.local` file at the project root:
 
 ```
 UV-INDEX-API2_TEST_LIVE=TRUE
+UV-INDEX-API2_APIKEY=<your-key>
 ```
 
 Then run:
@@ -141,6 +148,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

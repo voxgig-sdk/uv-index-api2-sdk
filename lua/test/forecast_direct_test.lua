@@ -63,12 +63,14 @@ function forecast_direct_setup(mockres)
   local env = runner.env_override({
     ["UVINDEXAPI__TEST_FORECAST_ENTID"] = {},
     ["UVINDEXAPI__TEST_LIVE"] = "FALSE",
+    ["UVINDEXAPI__APIKEY"] = "NONE",
   })
 
   local live = env["UVINDEXAPI__TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["UVINDEXAPI__APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

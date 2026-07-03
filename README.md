@@ -1,20 +1,8 @@
 # UvIndexApi2 SDK
 
-Look up the current UV index and a 5-day forecast for any latitude/longitude, no API key required
+UV Index API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About UV Index API
-
-[UV Index API](https://uvindexapi.com) is a free public service that returns real-time UV index readings and 5-day forecasts for any geographic location. The underlying data is sourced from NOAA.
-
-What you get from the API:
-
-- A `forecast` endpoint at `/api/v1/forecast` that takes `latitude`, `longitude`, and `timezone` query parameters.
-- Optional daily and hourly forecast detail (up to 5 days ahead).
-- Current UV index values for the supplied coordinates.
-
-Operational notes: no API key or registration is required. The service is rate-limited to 1,000 requests per day per IP address. The OpenAPI specification is published at `/api/v1/openapi` (HTML) and `/api/v1/openapi/json` (JSON).
 
 ## Try it
 
@@ -48,29 +36,31 @@ gem install uv-index-api2-sdk
 luarocks install uv-index-api2-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { UvIndexApi2SDK } from 'uv-index-api2'
 
-const client = new UvIndexApi2SDK({})
+const client = new UvIndexApi2SDK({
+  apikey: process.env.UV-INDEX-API2_APIKEY,
+})
 
 // List all forecasts
 const forecasts = await client.Forecast().list()
+console.log(forecasts.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Forecast** | UV index readings for a location — current value plus optional daily and hourly forecasts up to 5 days ahead, served from `GET /api/v1/forecast`. | `/api/v1/forecast` |
+| **Forecast** |  | `/api/v1/forecast` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -110,12 +100,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from uvindexapi2_sdk import UvIndexApi2SDK
 
-client = UvIndexApi2SDK({})
+client = UvIndexApi2SDK({
+    "apikey": os.environ.get("UV-INDEX-API2_APIKEY"),
+})
 
 # List all forecasts
-forecasts, err = client.Forecast(None).list(None, None)
+forecasts, err = client.Forecast().list()
+print(forecasts)
 ```
 
 ### PHP
@@ -124,10 +118,13 @@ forecasts, err = client.Forecast(None).list(None, None)
 <?php
 require_once 'uvindexapi2_sdk.php';
 
-$client = new UvIndexApi2SDK([]);
+$client = new UvIndexApi2SDK([
+    "apikey" => getenv("UV-INDEX-API2_APIKEY"),
+]);
 
 // List all forecasts
-[$forecasts, $err] = $client->Forecast(null)->list(null, null);
+[$forecasts, $err] = $client->Forecast()->list();
+print_r($forecasts);
 ```
 
 ### Golang
@@ -135,10 +132,13 @@ $client = new UvIndexApi2SDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/uv-index-api2-sdk/go"
 
-client := sdk.NewUvIndexApi2SDK(map[string]any{})
+client := sdk.NewUvIndexApi2SDK(map[string]any{
+    "apikey": os.Getenv("UV-INDEX-API2_APIKEY"),
+})
 
 // List all forecasts
 forecasts, err := client.Forecast(nil).List(nil, nil)
+fmt.Println(forecasts)
 ```
 
 ### Ruby
@@ -146,10 +146,13 @@ forecasts, err := client.Forecast(nil).List(nil, nil)
 ```ruby
 require_relative "UvIndexApi2_sdk"
 
-client = UvIndexApi2SDK.new({})
+client = UvIndexApi2SDK.new({
+  "apikey" => ENV["UV-INDEX-API2_APIKEY"],
+})
 
 # List all forecasts
-forecasts, err = client.Forecast(nil).list(nil, nil)
+forecasts, err = client.Forecast().list
+puts forecasts
 ```
 
 ### Lua
@@ -157,10 +160,13 @@ forecasts, err = client.Forecast(nil).list(nil, nil)
 ```lua
 local sdk = require("uv-index-api2_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("UV-INDEX-API2_APIKEY"),
+})
 
 -- List all forecasts
-local forecasts, err = client:Forecast(nil):list(nil, nil)
+local forecasts, err = client:Forecast():list()
+print(forecasts)
 ```
 
 ## Unit testing in offline mode
@@ -179,25 +185,21 @@ const result = await client.Forecast().load({ id: 'test01' })
 ### Python
 
 ```python
-client = UvIndexApi2SDK.test(None, None)
-result, err = client.Forecast(None).load(
-    {"id": "test01"}, None
-)
+client = UvIndexApi2SDK.test()
+result, err = client.Forecast().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = UvIndexApi2SDK::test(null, null);
-[$result, $err] = $client->Forecast(null)->load(
-    ["id" => "test01"], null
-);
+$client = UvIndexApi2SDK::test();
+[$result, $err] = $client->Forecast()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Forecast(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -206,19 +208,15 @@ result, err := client.Forecast(nil).Load(
 ### Ruby
 
 ```ruby
-client = UvIndexApi2SDK.test(nil, nil)
-result, err = client.Forecast(nil).load(
-  { "id" => "test01" }, nil
-)
+client = UvIndexApi2SDK.test
+result, err = client.Forecast().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Forecast(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Forecast():load({ id = "test01" })
 ```
 
 ## How it works
@@ -322,16 +320,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the UV Index API
-
-- Upstream: [https://uvindexapi.com](https://uvindexapi.com)
-- API docs: [https://uvindexapi.com/api/v1/openapi](https://uvindexapi.com/api/v1/openapi)
-
-- Data is licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
-- Attribution is required: include a visible link to `uvindexapi.com` wherever the data is displayed.
-- Free for both commercial and personal use.
-- Derivative works must be shared under the same CC BY-SA 4.0 terms.
 
 ---
 

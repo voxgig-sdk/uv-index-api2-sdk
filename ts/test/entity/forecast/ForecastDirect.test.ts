@@ -79,12 +79,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'UVINDEXAPI__TEST_FORECAST_ENTID': {},
     'UVINDEXAPI__TEST_LIVE': 'FALSE',
+    'UVINDEXAPI__APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.UVINDEXAPI__TEST_LIVE
 
   if (live) {
     const client = new UvIndexApi2SDK({
+      apikey: env.UVINDEXAPI__APIKEY,
     })
 
     let idmap: any = env['UVINDEXAPI__TEST_FORECAST_ENTID']

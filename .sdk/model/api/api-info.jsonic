@@ -21,27 +21,7 @@ main: {
       termsOfService: "https://uvindexapi.com/terms"
       title: "UV Index API"
       version: "1.0.0"
-      tagline: "Look up the current UV index and a 5-day forecast for any latitude/longitude, no API key required"
-      homepage: "https://uvindexapi.com"
-      docs_url: "https://uvindexapi.com/api/v1/openapi"
-      license_short: "CC BY-SA 4.0 — free for commercial and personal use with attribution"
-      license_md: `- Data is licensed under [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/).
-- Attribution is required: include a visible link to \`uvindexapi.com\` wherever the data is displayed.
-- Free for both commercial and personal use.
-- Derivative works must be shared under the same CC BY-SA 4.0 terms.`
-      about_md: `[UV Index API](https://uvindexapi.com) is a free public service that returns real-time UV index readings and 5-day forecasts for any geographic location. The underlying data is sourced from NOAA.
-
-What you get from the API:
-
-- A \`forecast\` endpoint at \`/api/v1/forecast\` that takes \`latitude\`, \`longitude\`, and \`timezone\` query parameters.
-- Optional daily and hourly forecast detail (up to 5 days ahead).
-- Current UV index values for the supplied coordinates.
-
-Operational notes: no API key or registration is required. The service is rate-limited to 1,000 requests per day per IP address. The OpenAPI specification is published at \`/api/v1/openapi\` (HTML) and \`/api/v1/openapi/json\` (JSON).`
-      entity_desc: {
-        forecast: "UV index readings for a location — current value plus optional daily and hourly forecasts up to 5 days ahead, served from `GET /api/v1/forecast`."
-      }
-      auth: false
     }
   }
 }
+
