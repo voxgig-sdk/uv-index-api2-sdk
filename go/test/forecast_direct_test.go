@@ -93,14 +93,12 @@ func forecastDirectSetup(mockres any) *forecastDirectSetupResult {
 	env := envOverride(map[string]any{
 		"UVINDEXAPI__TEST_FORECAST_ENTID": map[string]any{},
 		"UVINDEXAPI__TEST_LIVE":    "FALSE",
-		"UVINDEXAPI__APIKEY":       "NONE",
 	})
 
 	live := env["UVINDEXAPI__TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["UVINDEXAPI__APIKEY"],
 		}
 		client := sdk.NewUvIndexApi2SDK(mergedOpts)
 

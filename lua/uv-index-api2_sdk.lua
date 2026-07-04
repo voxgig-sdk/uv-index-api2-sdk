@@ -244,6 +244,19 @@ end
 
 
 
+-- Idiomatic facade: client:forecast():list() / client:forecast():load({ id = ... })
+function UvIndexApi2SDK:forecast(data)
+  local EntityMod = require("entity.forecast_entity")
+  if data == nil then
+    if self._forecast == nil then
+      self._forecast = EntityMod.new(self, nil)
+    end
+    return self._forecast
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:forecast() instead.
 function UvIndexApi2SDK:Forecast(data)
   local EntityMod = require("entity.forecast_entity")
   return EntityMod.new(self, data)

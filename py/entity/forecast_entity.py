@@ -1,7 +1,13 @@
 # UvIndexApi2 SDK Forecast entity
 
+from __future__ import annotations
+
 from utility.voxgig_struct import voxgig_struct as vs
 from core import helpers
+from uvindexapi2_types import (
+    Forecast,
+    ForecastListMatch,
+)
 
 
 class ForecastEntity:
@@ -44,7 +50,7 @@ class ForecastEntity:
             self._data = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetData")
 
-    def data_get(self):
+    def data_get(self) -> Forecast:
         self._utility.feature_hook(self._entctx, "GetData")
         return vs.clone(self._data)
 
@@ -53,14 +59,14 @@ class ForecastEntity:
             self._match = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetMatch")
 
-    def match_get(self):
+    def match_get(self) -> Forecast:
         self._utility.feature_hook(self._entctx, "GetMatch")
         return vs.clone(self._match)
 
     
 
     
-    def list(self, reqmatch, ctrl=None):
+    def list(self, reqmatch: ForecastListMatch, ctrl=None) -> list[Forecast]:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "list",

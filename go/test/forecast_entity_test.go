@@ -119,7 +119,6 @@ func forecastBasicSetup(extra map[string]any) *entityTestSetup {
 		"UVINDEXAPI__TEST_FORECAST_ENTID": idmap,
 		"UVINDEXAPI__TEST_LIVE":      "FALSE",
 		"UVINDEXAPI__TEST_EXPLAIN":   "FALSE",
-		"UVINDEXAPI__APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["UVINDEXAPI__TEST_FORECAST_ENTID"])
@@ -130,7 +129,6 @@ func forecastBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["UVINDEXAPI__TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["UVINDEXAPI__APIKEY"],
 			},
 			extra,
 		})

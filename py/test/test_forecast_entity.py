@@ -50,8 +50,7 @@ class TestForecastEntity:
         forecast_ref01_ent = client.Forecast(None)
         forecast_ref01_match = {}
 
-        forecast_ref01_list_result, err = forecast_ref01_ent.list(forecast_ref01_match, None)
-        assert err is None
+        forecast_ref01_list_result = forecast_ref01_ent.list(forecast_ref01_match, None)
         assert isinstance(forecast_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _forecast_basic_setup(extra):
         "UVINDEXAPI__TEST_FORECAST_ENTID": idmap,
         "UVINDEXAPI__TEST_LIVE": "FALSE",
         "UVINDEXAPI__TEST_EXPLAIN": "FALSE",
-        "UVINDEXAPI__APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _forecast_basic_setup(extra):
     if env.get("UVINDEXAPI__TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("UVINDEXAPI__APIKEY"),
             },
             extra or {},
         ])

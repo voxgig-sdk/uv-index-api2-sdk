@@ -20,9 +20,6 @@ class UvIndexApi2Config
             ],
             "options" => [
                 "base" => "https://uvindexapi.com",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

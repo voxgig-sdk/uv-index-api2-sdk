@@ -43,8 +43,7 @@ class ForecastEntityTest < Minitest::Test
     forecast_ref01_ent = client.Forecast(nil)
     forecast_ref01_match = {}
 
-    forecast_ref01_list_result, err = forecast_ref01_ent.list(forecast_ref01_match, nil)
-    assert_nil err
+    forecast_ref01_list_result = forecast_ref01_ent.list(forecast_ref01_match, nil)
     assert forecast_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def forecast_basic_setup(extra)
     "UVINDEXAPI__TEST_FORECAST_ENTID" => idmap,
     "UVINDEXAPI__TEST_LIVE" => "FALSE",
     "UVINDEXAPI__TEST_EXPLAIN" => "FALSE",
-    "UVINDEXAPI__APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def forecast_basic_setup(extra)
   if env["UVINDEXAPI__TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["UVINDEXAPI__APIKEY"],
       },
       extra || {},
     ])

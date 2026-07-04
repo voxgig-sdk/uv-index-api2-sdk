@@ -9,9 +9,12 @@ The TypeScript SDK for the UvIndexApi2 API — a type-safe, entity-oriented clie
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/uv-index-api2
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/uv-index-api2-sdk/releases](https://github.com/voxgig-sdk/uv-index-api2-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { UvIndexApi2SDK } from 'uv-index-api2'
+import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2'
 
-const client = new UvIndexApi2SDK({
-  apikey: process.env.UV-INDEX-API2_APIKEY,
-})
+const client = new UvIndexApi2SDK()
 ```
 
 ### 2. List forecasts
 
 ```ts
-const result = await client.Forecast().list()
+const result = await client.forecast.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -81,7 +82,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = UvIndexApi2SDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.forecast.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -89,7 +90,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new UvIndexApi2SDK({ apikey: '...' })
+const client = new UvIndexApi2SDK()
 const testClient = client.tester()
 ```
 
@@ -98,7 +99,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.forecast
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -125,7 +126,6 @@ const logger = {
 }
 
 const client = new UvIndexApi2SDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -135,8 +135,7 @@ const client = new UvIndexApi2SDK({
 Create a `.env.local` file at the project root:
 
 ```
-UV-INDEX-API2_TEST_LIVE=TRUE
-UV-INDEX-API2_APIKEY=<your-key>
+UV_INDEX_API2_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -154,7 +153,6 @@ cd ts && npm test
 
 ```ts
 new UvIndexApi2SDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -165,7 +163,6 @@ new UvIndexApi2SDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -277,7 +274,7 @@ API path: `/api/v1/forecast`
 
 ### Forecast
 
-Create an instance: `const forecast = client.Forecast()`
+Create an instance: `const forecast = client.forecast`
 
 #### Operations
 
@@ -303,7 +300,7 @@ Create an instance: `const forecast = client.Forecast()`
 #### Example: List
 
 ```ts
-const forecasts = await client.Forecast().list()
+const forecasts = await client.forecast.list()
 ```
 
 
@@ -364,7 +361,7 @@ uv-index-api2/
 Import the SDK from the package root:
 
 ```ts
-import { UvIndexApi2SDK } from 'uv-index-api2'
+import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2'
 ```
 
 ### Entity state
@@ -374,11 +371,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const forecast = client.forecast
+await forecast.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// forecast.data() now returns the loaded forecast data
+// forecast.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -245,6 +245,9 @@ func (sdk *UvIndexApi2SDK) Direct(fetchargs map[string]any) (map[string]any, err
 }
 
 
+// Forecast returns a Forecast entity bound to this client.
+// Idiomatic usage: client.Forecast(nil).List(nil, nil) or
+// client.Forecast(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *UvIndexApi2SDK) Forecast(data map[string]any) UvIndexApi2Entity {
 	return NewForecastEntityFunc(sdk, data)
 }

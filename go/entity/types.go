@@ -1,0 +1,82 @@
+// Typed models for the UvIndexApi2 SDK.
+//
+// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
+// params (op.<name>.points[].args.params[]). Field/param types come from the
+// canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
+// @voxgig/apidef VALID_CANON). Do not edit by hand.
+package entity
+
+import "encoding/json"
+
+// Forecast is the typed data model for the forecast entity.
+type Forecast struct {
+	Daily *[]any `json:"daily,omitempty"`
+	Hourly *[]any `json:"hourly,omitempty"`
+	Latitude float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	Meta map[string]any `json:"meta"`
+	Now map[string]any `json:"now"`
+	Ok bool `json:"ok"`
+	Timezone map[string]any `json:"timezone"`
+	Today map[string]any `json:"today"`
+	Tomorrow map[string]any `json:"tomorrow"`
+}
+
+// ForecastListMatch mirrors the forecast fields as an all-optional match
+// filter (Go analog of Partial<Forecast>).
+type ForecastListMatch struct {
+	Daily *[]any `json:"daily,omitempty"`
+	Hourly *[]any `json:"hourly,omitempty"`
+	Latitude *float64 `json:"latitude,omitempty"`
+	Longitude *float64 `json:"longitude,omitempty"`
+	Meta *map[string]any `json:"meta,omitempty"`
+	Now *map[string]any `json:"now,omitempty"`
+	Ok *bool `json:"ok,omitempty"`
+	Timezone *map[string]any `json:"timezone,omitempty"`
+	Today *map[string]any `json:"today,omitempty"`
+	Tomorrow *map[string]any `json:"tomorrow,omitempty"`
+}
+
+// asMap turns a typed request/data struct into the map[string]any the
+// runtime op pipeline consumes, honouring the json tags above.
+func asMap(v any) map[string]any {
+	out := map[string]any{}
+	b, err := json.Marshal(v)
+	if err != nil {
+		return out
+	}
+	_ = json.Unmarshal(b, &out)
+	return out
+}
+
+// typedFrom decodes a runtime value (a map[string]any produced by the op
+// pipeline) into a typed model T via a JSON round-trip. On any error it
+// returns the zero value of T; the op's own (value, error) tuple carries the
+// real error.
+func typedFrom[T any](v any) T {
+	var out T
+	if v == nil {
+		return out
+	}
+	b, err := json.Marshal(v)
+	if err != nil {
+		return out
+	}
+	_ = json.Unmarshal(b, &out)
+	return out
+}
+
+// typedSliceFrom decodes a runtime list value ([]any of maps) into a typed
+// slice []T via a JSON round-trip, for list ops.
+func typedSliceFrom[T any](v any) []T {
+	var out []T
+	if v == nil {
+		return out
+	}
+	b, err := json.Marshal(v)
+	if err != nil {
+		return out
+	}
+	_ = json.Unmarshal(b, &out)
+	return out
+}

@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Forecast,
+  ForecastListMatch,
+} from '../UvIndexApi2Types'
 
 // TODO: needs Entity superclass
-class ForecastEntity extends UvIndexApi2EntityBase {
+class ForecastEntity extends UvIndexApi2EntityBase<Forecast> {
 
   constructor(client: UvIndexApi2SDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class ForecastEntity extends UvIndexApi2EntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: ForecastListMatch, ctrl?: Control): Promise<Forecast[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class ForecastEntity extends UvIndexApi2EntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Forecast[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
