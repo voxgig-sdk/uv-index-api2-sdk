@@ -220,25 +220,15 @@ class UvIndexApi2SDK:
         }
 
 
-    @property
-    def forecast(self):
-        """Idiomatic facade: client.forecast.list() / client.forecast.load({"id": ...})."""
-        from entity.forecast_entity import ForecastEntity
-        cached = getattr(self, "_forecast", None)
-        if cached is None:
-            cached = ForecastEntity(self, None)
-            self._forecast = cached
-        return cached
-
-    def Forecast(self, data=None):
-        # Deprecated: use client.forecast instead.
+    def Forecast(self, data=None) -> "ForecastEntity":
+        """Entity factory: client.Forecast().list({}) / client.Forecast().load({"id": ...})."""
         from entity.forecast_entity import ForecastEntity
         return ForecastEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "UvIndexApi2SDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class UvIndexApi2SDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.forecast_entity import ForecastEntity

@@ -29,18 +29,16 @@ require_once 'uvindexapi2_sdk.php';
 $client = new UvIndexApi2SDK();
 ```
 
-### 2. List forecasts
+### 2. List forecast records
 
 ```php
 try {
-    $result = $client->forecast()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Forecast records — iterate directly.
+    $forecasts = $client->Forecast()->list();
+    foreach ($forecasts as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -86,13 +84,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = UvIndexApi2SDK::test();
+$client = UvIndexApi2SDK::test([
+    "entity" => ["forecast" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->forecast()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$forecast = $client->Forecast()->load(["id" => "test01"]);
+print_r($forecast);
 ```
 
 ### Use a custom fetch function
@@ -237,7 +239,7 @@ API path: `/api/v1/forecast`
 
 ### Forecast
 
-Create an instance: `const forecast = client.forecast`
+Create an instance: `$forecast = $client->Forecast();`
 
 #### Operations
 
@@ -262,8 +264,9 @@ Create an instance: `const forecast = client.forecast`
 
 #### Example: List
 
-```ts
-const forecasts = await client.forecast.list()
+```php
+// list() returns an array of Forecast records (throws on error).
+$forecasts = $client->Forecast()->list();
 ```
 
 
@@ -338,7 +341,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$forecast = $client->forecast();
+$forecast = $client->Forecast();
 $forecast->load(["id" => "example_id"]);
 
 // $forecast->dataGet() now returns the loaded forecast data

@@ -233,10 +233,10 @@ class UvIndexApi2SDK
 
     private $_forecast = null;
 
-    // Idiomatic facade: $client->forecast()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Forecast() (PHP method
-    // names are case-insensitive).
-    public function forecast($data = null)
+    // Canonical facade: $client->Forecast()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->forecast()
+    // resolves here too.
+    public function Forecast($data = null)
     {
         require_once __DIR__ . '/entity/forecast_entity.php';
         if ($data === null) {

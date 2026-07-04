@@ -28,16 +28,14 @@ require_relative "UvIndexApi2_sdk"
 client = UvIndexApi2SDK.new
 ```
 
-### 2. List forecasts
+### 2. List forecast records
 
 ```ruby
 begin
-  result = client.forecast.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Forecast records — iterate directly.
+  forecasts = client.Forecast.list
+  forecasts.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -85,13 +83,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = UvIndexApi2SDK.test
+client = UvIndexApi2SDK.test({
+  "entity" => { "forecast" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.forecast.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+forecast = client.Forecast.load({ "id" => "test01" })
+puts forecast
 ```
 
 ### Use a custom fetch function
@@ -232,7 +234,7 @@ API path: `/api/v1/forecast`
 
 ### Forecast
 
-Create an instance: `const forecast = client.forecast`
+Create an instance: `forecast = client.Forecast`
 
 #### Operations
 
@@ -257,8 +259,9 @@ Create an instance: `const forecast = client.forecast`
 
 #### Example: List
 
-```ts
-const forecasts = await client.forecast.list()
+```ruby
+# list returns an Array of Forecast records (raises on error).
+forecasts = client.Forecast.list
 ```
 
 
@@ -333,7 +336,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-forecast = client.forecast
+forecast = client.Forecast
 forecast.load({ "id" => "example_id" })
 
 # forecast.data_get now returns the loaded forecast data

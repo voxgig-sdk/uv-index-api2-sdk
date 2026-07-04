@@ -109,7 +109,7 @@ Alias for `UvIndexApi2SDK.test()`.
 ## ForecastEntity
 
 ```ts
-const forecast = client.forecast
+const forecast = client.Forecast()
 ```
 
 ### Fields
@@ -134,7 +134,7 @@ const forecast = client.forecast
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.forecast.list()
+const results = await client.Forecast().list()
 ```
 
 ### Common Methods

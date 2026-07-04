@@ -4,15 +4,19 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Forecast:
+class ForecastRequired(TypedDict):
     latitude: float
     longitude: float
     meta: dict
@@ -21,20 +25,21 @@ class Forecast:
     timezone: dict
     today: dict
     tomorrow: dict
-    daily: Optional[list] = None
-    hourly: Optional[list] = None
 
 
-@dataclass
-class ForecastListMatch:
-    daily: Optional[list] = None
-    hourly: Optional[list] = None
-    latitude: Optional[float] = None
-    longitude: Optional[float] = None
-    meta: Optional[dict] = None
-    now: Optional[dict] = None
-    ok: Optional[bool] = None
-    timezone: Optional[dict] = None
-    today: Optional[dict] = None
-    tomorrow: Optional[dict] = None
+class Forecast(ForecastRequired, total=False):
+    daily: list
+    hourly: list
 
+
+class ForecastListMatch(TypedDict, total=False):
+    daily: list
+    hourly: list
+    latitude: float
+    longitude: float
+    meta: dict
+    now: dict
+    ok: bool
+    timezone: dict
+    today: dict
+    tomorrow: dict

@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## ForecastEntity
 
 ```lua
-local forecast = client:forecast(nil)
+local forecast = client:Forecast(nil)
 ```
 
 ### Fields
@@ -108,7 +108,7 @@ local forecast = client:forecast(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:forecast():list()
+local results, err = client:Forecast():list()
 ```
 
 ### Common Methods

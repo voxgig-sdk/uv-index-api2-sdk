@@ -85,7 +85,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## ForecastEntity
 
 ```php
-$forecast = $client->forecast();
+$forecast = $client->Forecast();
 ```
 
 ### Fields
@@ -110,7 +110,7 @@ $forecast = $client->forecast();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->forecast()->list([]);
+$results = $client->Forecast()->list([]);
 ```
 
 ### Common Methods

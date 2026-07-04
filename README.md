@@ -26,9 +26,11 @@ import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2'
 
 const client = new UvIndexApi2SDK()
 
-// List all forecasts
-const forecasts = await client.forecast.list()
-console.log(forecasts.data)
+// List all forecasts (returns Forecast[])
+const forecasts = await client.Forecast().list()
+for (const forecast of forecasts) {
+  console.log(forecast)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,9 +85,10 @@ from uvindexapi2_sdk import UvIndexApi2SDK
 
 client = UvIndexApi2SDK()
 
-# List all forecasts
-forecasts = client.forecast.list()
-print(forecasts)
+# List all forecasts (returns a list, raises on error)
+forecasts = client.Forecast().list({})
+for forecast in forecasts:
+    print(forecast)
 ```
 
 ### PHP
@@ -96,8 +99,8 @@ require_once 'uvindexapi2_sdk.php';
 
 $client = new UvIndexApi2SDK();
 
-// List all forecasts (throws on error)
-$forecasts = $client->forecast()->list();
+// List all forecasts (returns an array; throws on error)
+$forecasts = $client->Forecast()->list();
 print_r($forecasts);
 ```
 
@@ -120,8 +123,8 @@ require_relative "UvIndexApi2_sdk"
 
 client = UvIndexApi2SDK.new
 
-# List all forecasts
-forecasts = client.forecast.list
+# List all forecasts (returns an Array; raises on error)
+forecasts = client.Forecast.list
 puts forecasts
 ```
 
@@ -133,7 +136,7 @@ local sdk = require("uv-index-api2_sdk")
 local client = sdk.new()
 
 -- List all forecasts
-local forecasts, err = client:forecast():list()
+local forecasts, err = client:Forecast():list()
 print(forecasts)
 ```
 
@@ -146,22 +149,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = UvIndexApi2SDK.test()
-const result = await client.forecast.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const forecast = await client.Forecast().load({ id: 'test01' })
+// forecast is a bare Forecast populated with mock data
+console.log(forecast)
 ```
 
 ### Python
 
 ```python
 client = UvIndexApi2SDK.test()
-result = client.forecast.load({"id": "test01"})
+forecast = client.Forecast().load({"id": "test01"})
+print(forecast)
 ```
 
 ### PHP
 
 ```php
-$client = UvIndexApi2SDK::test();
-$result = $client->forecast()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = UvIndexApi2SDK::test([
+    "entity" => ["forecast" => ["test01" => ["id" => "test01"]]],
+]);
+$forecast = $client->Forecast()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -176,15 +184,18 @@ result, err := client.Forecast(nil).Load(
 ### Ruby
 
 ```ruby
-client = UvIndexApi2SDK.test
-result = client.forecast.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = UvIndexApi2SDK.test({
+  "entity" => { "forecast" => { "test01" => { "id" => "test01" } } },
+})
+forecast = client.Forecast.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:forecast():load({ id = "test01" })
+local result, err = client:Forecast():load({ id = "test01" })
 ```
 
 ## How it works
@@ -232,6 +243,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

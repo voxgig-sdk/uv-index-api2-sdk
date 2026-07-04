@@ -208,13 +208,7 @@ class UvIndexApi2SDK
   end
 
 
-  # Idiomatic facade: client.forecast.list / client.forecast.load({ "id" => ... })
-  def forecast
-    require_relative 'entity/forecast_entity'
-    @forecast ||= ForecastEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.forecast instead.
+  # Canonical facade: client.Forecast.list / client.Forecast.load({ "id" => ... })
   def Forecast(data = nil)
     require_relative 'entity/forecast_entity'
     ForecastEntity.new(self, data)

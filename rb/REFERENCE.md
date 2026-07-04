@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## ForecastEntity
 
 ```ruby
-forecast = client.forecast
+forecast = client.Forecast
 ```
 
 ### Fields
@@ -111,7 +111,7 @@ forecast = client.forecast
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.forecast.list(nil)
+results = client.Forecast.list(nil)
 ```
 
 ### Common Methods

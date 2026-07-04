@@ -31,14 +31,16 @@ from uvindexapi2_sdk import UvIndexApi2SDK
 client = UvIndexApi2SDK()
 ```
 
-### 2. List forecasts
+### 2. List forecast records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.forecast.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    forecasts = client.Forecast().list({})
+    for forecast in forecasts:
+        print(forecast)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -86,8 +88,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = UvIndexApi2SDK.test()
 
-result = client.forecast.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+forecast = client.Forecast().load({"id": "test01"})
+# forecast contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -229,7 +232,7 @@ API path: `/api/v1/forecast`
 
 ### Forecast
 
-Create an instance: `const forecast = client.forecast`
+Create an instance: `forecast = client.Forecast()`
 
 #### Operations
 
@@ -254,8 +257,8 @@ Create an instance: `const forecast = client.forecast`
 
 #### Example: List
 
-```ts
-const forecasts = await client.forecast.list()
+```python
+forecasts = client.Forecast().list({})
 ```
 
 
@@ -329,7 +332,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-forecast = client.forecast
+forecast = client.Forecast()
 forecast.load({"id": "example_id"})
 
 # forecast.data_get() now returns the loaded forecast data
