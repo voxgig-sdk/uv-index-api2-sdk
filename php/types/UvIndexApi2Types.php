@@ -27,7 +27,7 @@ class Forecast
     public array $tomorrow;
 }
 
-/** Match filter for Forecast#list (any subset of Forecast fields). */
+/** Request payload for Forecast#list. */
 class ForecastListMatch
 {
     public ?array $daily = null;

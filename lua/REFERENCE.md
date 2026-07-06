@@ -90,16 +90,16 @@ local forecast = client:Forecast(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | ``$ARRAY`` | No |  |
-| `hourly` | ``$ARRAY`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `meta` | ``$OBJECT`` | Yes |  |
-| `now` | ``$OBJECT`` | Yes |  |
-| `ok` | ``$BOOLEAN`` | Yes |  |
-| `timezone` | ``$OBJECT`` | Yes |  |
-| `today` | ``$OBJECT`` | Yes |  |
-| `tomorrow` | ``$OBJECT`` | Yes |  |
+| `daily` | `table` | No |  |
+| `hourly` | `table` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `meta` | `table` | Yes |  |
+| `now` | `table` | Yes |  |
+| `ok` | `boolean` | Yes |  |
+| `timezone` | `table` | Yes |  |
+| `today` | `table` | Yes |  |
+| `tomorrow` | `table` | Yes |  |
 
 ### Operations
 

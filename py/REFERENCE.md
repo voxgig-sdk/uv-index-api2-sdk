@@ -8,7 +8,7 @@ Complete API reference for the UvIndexApi2 Python SDK.
 ### Constructor
 
 ```python
-from uv-index-api2_sdk import UvIndexApi2SDK
+from uvindexapi2_sdk import UvIndexApi2SDK
 
 client = UvIndexApi2SDK(options)
 ```
@@ -87,25 +87,25 @@ forecast = client.Forecast()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | ``$ARRAY`` | No |  |
-| `hourly` | ``$ARRAY`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `meta` | ``$OBJECT`` | Yes |  |
-| `now` | ``$OBJECT`` | Yes |  |
-| `ok` | ``$BOOLEAN`` | Yes |  |
-| `timezone` | ``$OBJECT`` | Yes |  |
-| `today` | ``$OBJECT`` | Yes |  |
-| `tomorrow` | ``$OBJECT`` | Yes |  |
+| `daily` | `list` | No |  |
+| `hourly` | `list` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `meta` | `dict` | Yes |  |
+| `now` | `dict` | Yes |  |
+| `ok` | `bool` | Yes |  |
+| `timezone` | `dict` | Yes |  |
+| `today` | `dict` | Yes |  |
+| `tomorrow` | `dict` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Forecast().list({})
+results = client.Forecast().list()
 for forecast in results:
     print(forecast)
 ```

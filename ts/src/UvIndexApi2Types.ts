@@ -18,5 +18,16 @@ export interface Forecast {
   tomorrow: Record<string, any>
 }
 
-export type ForecastListMatch = Partial<Forecast>
+export interface ForecastListMatch {
+  daily?: any[]
+  hourly?: any[]
+  latitude?: number
+  longitude?: number
+  meta?: Record<string, any>
+  now?: Record<string, any>
+  ok?: boolean
+  timezone?: Record<string, any>
+  today?: Record<string, any>
+  tomorrow?: Record<string, any>
+}
 

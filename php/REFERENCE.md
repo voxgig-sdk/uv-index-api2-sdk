@@ -8,7 +8,7 @@ Complete API reference for the UvIndexApi2 PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/uv-index-api2_sdk.php';
+require_once __DIR__ . '/uvindexapi2_sdk.php';
 
 $client = new UvIndexApi2SDK($options);
 ```
@@ -45,11 +45,11 @@ $client = UvIndexApi2SDK::test();
 
 Create a new `ForecastEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): UvIndexApi2Utility`
 
 Return a copy of the SDK utility object.
 
@@ -92,42 +92,42 @@ $forecast = $client->Forecast();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | ``$ARRAY`` | No |  |
-| `hourly` | ``$ARRAY`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `meta` | ``$OBJECT`` | Yes |  |
-| `now` | ``$OBJECT`` | Yes |  |
-| `ok` | ``$BOOLEAN`` | Yes |  |
-| `timezone` | ``$OBJECT`` | Yes |  |
-| `today` | ``$OBJECT`` | Yes |  |
-| `tomorrow` | ``$OBJECT`` | Yes |  |
+| `daily` | `array` | No |  |
+| `hourly` | `array` | No |  |
+| `latitude` | `float` | Yes |  |
+| `longitude` | `float` | Yes |  |
+| `meta` | `array` | Yes |  |
+| `now` | `array` | Yes |  |
+| `ok` | `bool` | Yes |  |
+| `timezone` | `array` | Yes |  |
+| `today` | `array` | Yes |  |
+| `tomorrow` | `array` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Forecast()->list([]);
+$results = $client->Forecast()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -136,7 +136,7 @@ Set the entity match criteria.
 Create a new `ForecastEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

@@ -22,8 +22,7 @@ type Forecast struct {
 	Tomorrow map[string]any `json:"tomorrow"`
 }
 
-// ForecastListMatch mirrors the forecast fields as an all-optional match
-// filter (Go analog of Partial<Forecast>).
+// ForecastListMatch is the typed request payload for Forecast.ListTyped.
 type ForecastListMatch struct {
 	Daily *[]any `json:"daily,omitempty"`
 	Hourly *[]any `json:"hourly,omitempty"`

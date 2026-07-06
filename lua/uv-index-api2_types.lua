@@ -19,6 +19,16 @@
 ---@field tomorrow table
 
 ---@class ForecastListMatch
+---@field daily? table
+---@field hourly? table
+---@field latitude? number
+---@field longitude? number
+---@field meta? table
+---@field now? table
+---@field ok? boolean
+---@field timezone? table
+---@field today? table
+---@field tomorrow? table
 
 local M = {}
 

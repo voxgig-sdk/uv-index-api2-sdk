@@ -116,16 +116,16 @@ const forecast = client.Forecast()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | ``$ARRAY`` | No |  |
-| `hourly` | ``$ARRAY`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `meta` | ``$OBJECT`` | Yes |  |
-| `now` | ``$OBJECT`` | Yes |  |
-| `ok` | ``$BOOLEAN`` | Yes |  |
-| `timezone` | ``$OBJECT`` | Yes |  |
-| `today` | ``$OBJECT`` | Yes |  |
-| `tomorrow` | ``$OBJECT`` | Yes |  |
+| `daily` | `any[]` | No |  |
+| `hourly` | `any[]` | No |  |
+| `latitude` | `number` | Yes |  |
+| `longitude` | `number` | Yes |  |
+| `meta` | `Record<string, any>` | Yes |  |
+| `now` | `Record<string, any>` | Yes |  |
+| `ok` | `boolean` | Yes |  |
+| `timezone` | `Record<string, any>` | Yes |  |
+| `today` | `Record<string, any>` | Yes |  |
+| `tomorrow` | `Record<string, any>` | Yes |  |
 
 ### Operations
 

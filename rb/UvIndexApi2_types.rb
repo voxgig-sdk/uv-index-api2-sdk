@@ -53,7 +53,7 @@ Forecast = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Forecast#list (any subset of Forecast fields).
+# Request payload for Forecast#list.
 #
 # @!attribute [rw] daily
 #   @return [Array, nil]

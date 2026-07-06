@@ -97,16 +97,16 @@ forecast := client.Forecast(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | ``$ARRAY`` | No |  |
-| `hourly` | ``$ARRAY`` | No |  |
-| `latitude` | ``$NUMBER`` | Yes |  |
-| `longitude` | ``$NUMBER`` | Yes |  |
-| `meta` | ``$OBJECT`` | Yes |  |
-| `now` | ``$OBJECT`` | Yes |  |
-| `ok` | ``$BOOLEAN`` | Yes |  |
-| `timezone` | ``$OBJECT`` | Yes |  |
-| `today` | ``$OBJECT`` | Yes |  |
-| `tomorrow` | ``$OBJECT`` | Yes |  |
+| `daily` | `[]any` | No |  |
+| `hourly` | `[]any` | No |  |
+| `latitude` | `float64` | Yes |  |
+| `longitude` | `float64` | Yes |  |
+| `meta` | `map[string]any` | Yes |  |
+| `now` | `map[string]any` | Yes |  |
+| `ok` | `bool` | Yes |  |
+| `timezone` | `map[string]any` | Yes |  |
+| `today` | `map[string]any` | Yes |  |
+| `tomorrow` | `map[string]any` | Yes |  |
 
 ### Operations
 

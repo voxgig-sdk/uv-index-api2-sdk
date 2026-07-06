@@ -221,7 +221,7 @@ class UvIndexApi2SDK:
 
 
     def Forecast(self, data=None) -> "ForecastEntity":
-        """Entity factory: client.Forecast().list({}) / client.Forecast().load({"id": ...})."""
+        """Entity factory: client.Forecast().list() / client.Forecast().load({"id": ...})."""
         from entity.forecast_entity import ForecastEntity
         return ForecastEntity(self, data)
 
