@@ -19,10 +19,10 @@ main: {
           url: "https://uvindexapi.com"
         }
       ]
+      summary: "Get current and forecasted UV Index data for any location worldwide."
       termsOfService: "https://uvindexapi.com/terms"
       title: "UV Index API"
       version: "1.0.0"
+      website: "https://uvindexapi.com"
     }
   }
-}
-

@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -302,14 +299,17 @@
           "name": "Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0)",
           "url": "https://creativecommons.org/licenses/by-sa/4.0/"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "url": "https://uvindexapi.com"
           }
         ],
+        "summary": "Get current and forecasted UV Index data for any location worldwide.",
         "termsOfService": "https://uvindexapi.com/terms",
         "title": "UV Index API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://uvindexapi.com"
       },
       "option": {},
       "target": {
@@ -362,6 +362,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -412,6 +415,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
