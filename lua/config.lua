@@ -1,4 +1,4 @@
--- ProjectName SDK configuration
+-- UvIndexApi2 SDK configuration
 
 local function make_config()
   return {
