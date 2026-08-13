@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = UvIndexApi2SDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = UvIndexApi2SDK.test({
+  entity: {
+    forecast: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const forecasts = await client.Forecast().list()
-// forecasts is an array of bare Forecast records populated with mock data
+// forecasts is an array of Forecast entities, populated with mock data
+// — call forecasts[0].data() for the record itself
 console.log(forecasts)
 ```
 
@@ -110,7 +119,7 @@ import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2'
 
 const client = new UvIndexApi2SDK()
 
-// List all forecasts (returns Forecast[])
+// List all forecasts (returns ForecastEntity[] — .data() for the record)
 const forecasts = await client.Forecast().list()
 for (const forecast of forecasts) {
   console.log(forecast)
@@ -343,6 +352,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://uvindexapi.com](https://uvindexapi.com)
 

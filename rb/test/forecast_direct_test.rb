@@ -60,11 +60,11 @@ def forecast_direct_setup(mockres)
   calls = []
 
   env = Runner.env_override({
-    "UVINDEXAPI__TEST_FORECAST_ENTID" => {},
-    "UVINDEXAPI__TEST_LIVE" => "FALSE",
+    "UV_INDEX_API2_TEST_FORECAST_ENTID" => {},
+    "UV_INDEX_API2_TEST_LIVE" => "FALSE",
   })
 
-  live = env["UVINDEXAPI__TEST_LIVE"] == "TRUE"
+  live = env["UV_INDEX_API2_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {

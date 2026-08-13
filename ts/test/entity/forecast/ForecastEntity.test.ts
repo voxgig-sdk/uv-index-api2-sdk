@@ -26,8 +26,8 @@ import {
 describe('ForecastEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when UVINDEXAPI2_TEST_LIVE=TRUE.
-  afterEach(liveDelay('UVINDEXAPI2_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when UV_INDEX_API2_TEST_LIVE=TRUE.
+  afterEach(liveDelay('UV_INDEX_API2_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = UvIndexApi2SDK.test()
@@ -38,7 +38,7 @@ describe('ForecastEntity', async () => {
 
   test('basic', async (t) => {
 
-    const live = 'TRUE' === process.env.UV_INDEX_API__TEST_LIVE
+    const live = 'TRUE' === process.env.UV_INDEX_API2_TEST_LIVE
     for (const op of ['list']) {
       if (maybeSkipControl(t, 'entityOp', 'forecast.' + op, live)) return
     }
@@ -48,7 +48,7 @@ describe('ForecastEntity', async () => {
     // fixture (entity TestData.json). Those don't exist on the live API.
     // Skip live runs unless the user provided a real ENTID env override.
     if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set UV_INDEX_API__TEST_FORECAST_ENTID JSON to run live')
+      t.skip('live entity test uses synthetic IDs from fixture — set UV_INDEX_API2_TEST_FORECAST_ENTID JSON to run live')
       return
     }
     const client = setup.client
@@ -63,7 +63,7 @@ describe('ForecastEntity', async () => {
     const forecast_ref01_ent = client.Forecast()
     const forecast_ref01_match: any = {}
 
-    const forecast_ref01_list = await forecast_ref01_ent.list(forecast_ref01_match)
+    const forecast_ref01_list = (await forecast_ref01_ent.list(forecast_ref01_match)).map((e: any) => e.data())
 
 
   })
@@ -106,18 +106,18 @@ function basicSetup(extra?: any) {
   // basic flow consumes synthetic IDs from the fixture file; without an
   // override those synthetic IDs reach the live API and 4xx. Surface this
   // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['UV_INDEX_API__TEST_FORECAST_ENTID']
+  const idmapEnvVal = process.env['UV_INDEX_API2_TEST_FORECAST_ENTID']
   const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
 
   const env = envOverride({
-    'UV_INDEX_API__TEST_FORECAST_ENTID': idmap,
-    'UV_INDEX_API__TEST_LIVE': 'FALSE',
-    'UV_INDEX_API__TEST_EXPLAIN': 'FALSE',
+    'UV_INDEX_API2_TEST_FORECAST_ENTID': idmap,
+    'UV_INDEX_API2_TEST_LIVE': 'FALSE',
+    'UV_INDEX_API2_TEST_EXPLAIN': 'FALSE',
   })
 
-  idmap = env['UV_INDEX_API__TEST_FORECAST_ENTID']
+  idmap = env['UV_INDEX_API2_TEST_FORECAST_ENTID']
 
-  const live = 'TRUE' === env.UV_INDEX_API__TEST_LIVE
+  const live = 'TRUE' === env.UV_INDEX_API2_TEST_LIVE
 
   if (live) {
     client = new UvIndexApi2SDK(merge([
@@ -134,7 +134,7 @@ function basicSetup(extra?: any) {
     client,
     struct,
     data: entityData,
-    explain: 'TRUE' === env.UV_INDEX_API__TEST_EXPLAIN,
+    explain: 'TRUE' === env.UV_INDEX_API2_TEST_EXPLAIN,
     live,
     syntheticOnly: live && !idmapOverridden,
     now: Date.now(),

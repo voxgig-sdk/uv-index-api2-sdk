@@ -35,7 +35,9 @@ const client = new UvIndexApi2SDK()
 
 ### 2. List forecast records
 
-`list()` resolves to an array of Forecast objects — iterate it directly:
+`list()` resolves to an array of Forecast ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const forecasts = await client.Forecast().list()
@@ -120,7 +122,8 @@ Create a mock client for unit testing — no server required:
 const client = UvIndexApi2SDK.test()
 
 const forecast = await client.Forecast().list()
-// forecast is a bare entity populated with mock response data
+// forecast is the entity, populated with mock response data
+// — call forecast.data() for the record itself
 console.log(forecast)
 ```
 

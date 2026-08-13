@@ -37,7 +37,7 @@ class ForecastEntity extends UvIndexApi2EntityBase<Forecast> {
 
 
 
-  async list(this: any, reqmatch?: ForecastListMatch, ctrl?: Control): Promise<Forecast[]> {
+  async list(this: any, reqmatch?: ForecastListMatch, ctrl?: Control): Promise<ForecastEntity[]> {
 
     const utility = this._utility
 

@@ -148,6 +148,7 @@ module UvIndexApi2Config
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/v1/forecast",
                   "parts" => [

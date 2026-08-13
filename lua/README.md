@@ -218,9 +218,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local forecast, err = client:Forecast():load()
+    local forecast, err = client:Forecast():list()
     if err then error(err) end
-    -- forecast is the loaded record
+    -- forecast is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
