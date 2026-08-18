@@ -1,6 +1,20 @@
 # UvIndexApi2 SDK configuration
 
 module UvIndexApi2Config
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -26,74 +40,52 @@ module UvIndexApi2Config
         "forecast" => {
           "fields" => [
             {
-              "active" => true,
               "name" => "daily",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 0,
             },
             {
-              "active" => true,
               "name" => "hourly",
-              "req" => false,
               "type" => "`$ARRAY`",
-              "index$" => 1,
             },
             {
-              "active" => true,
               "name" => "latitude",
               "req" => true,
               "type" => "`$NUMBER`",
-              "index$" => 2,
             },
             {
-              "active" => true,
               "name" => "longitude",
               "req" => true,
               "type" => "`$NUMBER`",
-              "index$" => 3,
             },
             {
-              "active" => true,
               "name" => "meta",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 4,
             },
             {
-              "active" => true,
               "name" => "now",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 5,
             },
             {
-              "active" => true,
               "name" => "ok",
               "req" => true,
               "type" => "`$BOOLEAN`",
-              "index$" => 6,
             },
             {
-              "active" => true,
               "name" => "timezone",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 7,
             },
             {
-              "active" => true,
               "name" => "today",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 8,
             },
             {
-              "active" => true,
               "name" => "tomorrow",
               "req" => true,
               "type" => "`$OBJECT`",
-              "index$" => 9,
             },
           ],
           "name" => "forecast",
@@ -103,27 +95,21 @@ module UvIndexApi2Config
               "name" => "list",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "query" => [
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "daily",
                         "orig" => "daily",
-                        "reqd" => false,
                         "type" => "`$BOOLEAN`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "hourly",
                         "orig" => "hourly",
-                        "reqd" => false,
                         "type" => "`$BOOLEAN`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "latitude",
                         "orig" => "latitude",
@@ -131,7 +117,6 @@ module UvIndexApi2Config
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "longitude",
                         "orig" => "longitude",
@@ -139,11 +124,9 @@ module UvIndexApi2Config
                         "type" => "`$NUMBER`",
                       },
                       {
-                        "active" => true,
                         "kind" => "query",
                         "name" => "timezone",
                         "orig" => "timezone",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
@@ -169,10 +152,8 @@ module UvIndexApi2Config
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {

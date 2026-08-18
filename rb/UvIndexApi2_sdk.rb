@@ -28,7 +28,7 @@ class UvIndexApi2SDK
     utility = UvIndexApi2Utility.new
     @_utility = utility
 
-    config = UvIndexApi2Config.make_config
+    config = UvIndexApi2Config.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

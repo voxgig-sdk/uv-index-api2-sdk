@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'https://uvindexapi.com',
+    base: "https://uvindexapi.com",
 
     headers: {
       "content-type": "application/json"
@@ -55,74 +55,52 @@ class Config {
     "forecast": {
       "fields": [
         {
-          "active": true,
           "name": "daily",
-          "req": false,
-          "type": "`$ARRAY`",
-          "index$": 0
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "hourly",
-          "req": false,
-          "type": "`$ARRAY`",
-          "index$": 1
+          "type": "`$ARRAY`"
         },
         {
-          "active": true,
           "name": "latitude",
           "req": true,
-          "type": "`$NUMBER`",
-          "index$": 2
+          "type": "`$NUMBER`"
         },
         {
-          "active": true,
           "name": "longitude",
           "req": true,
-          "type": "`$NUMBER`",
-          "index$": 3
+          "type": "`$NUMBER`"
         },
         {
-          "active": true,
           "name": "meta",
           "req": true,
-          "type": "`$OBJECT`",
-          "index$": 4
+          "type": "`$OBJECT`"
         },
         {
-          "active": true,
           "name": "now",
           "req": true,
-          "type": "`$OBJECT`",
-          "index$": 5
+          "type": "`$OBJECT`"
         },
         {
-          "active": true,
           "name": "ok",
           "req": true,
-          "type": "`$BOOLEAN`",
-          "index$": 6
+          "type": "`$BOOLEAN`"
         },
         {
-          "active": true,
           "name": "timezone",
           "req": true,
-          "type": "`$OBJECT`",
-          "index$": 7
+          "type": "`$OBJECT`"
         },
         {
-          "active": true,
           "name": "today",
           "req": true,
-          "type": "`$OBJECT`",
-          "index$": 8
+          "type": "`$OBJECT`"
         },
         {
-          "active": true,
           "name": "tomorrow",
           "req": true,
-          "type": "`$OBJECT`",
-          "index$": 9
+          "type": "`$OBJECT`"
         }
       ],
       "name": "forecast",
@@ -132,27 +110,21 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {
                 "query": [
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "daily",
                     "orig": "daily",
-                    "reqd": false,
                     "type": "`$BOOLEAN`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "hourly",
                     "orig": "hourly",
-                    "reqd": false,
                     "type": "`$BOOLEAN`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "latitude",
                     "orig": "latitude",
@@ -160,7 +132,6 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "longitude",
                     "orig": "longitude",
@@ -168,11 +139,9 @@ class Config {
                     "type": "`$NUMBER`"
                   },
                   {
-                    "active": true,
                     "kind": "query",
                     "name": "timezone",
                     "orig": "timezone",
-                    "reqd": false,
                     "type": "`$STRING`"
                   }
                 ]
@@ -197,11 +166,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         }
       },
       "relations": {

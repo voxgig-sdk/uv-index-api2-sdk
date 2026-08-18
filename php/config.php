@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class UvIndexApi2Config
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -31,74 +54,52 @@ class UvIndexApi2Config
         'forecast' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'daily',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'hourly',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'latitude',
               'req' => true,
               'type' => '`$NUMBER`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'longitude',
               'req' => true,
               'type' => '`$NUMBER`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'meta',
               'req' => true,
               'type' => '`$OBJECT`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'now',
               'req' => true,
               'type' => '`$OBJECT`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'ok',
               'req' => true,
               'type' => '`$BOOLEAN`',
-              'index$' => 6,
             ],
             [
-              'active' => true,
               'name' => 'timezone',
               'req' => true,
               'type' => '`$OBJECT`',
-              'index$' => 7,
             ],
             [
-              'active' => true,
               'name' => 'today',
               'req' => true,
               'type' => '`$OBJECT`',
-              'index$' => 8,
             ],
             [
-              'active' => true,
               'name' => 'tomorrow',
               'req' => true,
               'type' => '`$OBJECT`',
-              'index$' => 9,
             ],
           ],
           'name' => 'forecast',
@@ -108,27 +109,21 @@ class UvIndexApi2Config
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'daily',
                         'orig' => 'daily',
-                        'reqd' => false,
                         'type' => '`$BOOLEAN`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'hourly',
                         'orig' => 'hourly',
-                        'reqd' => false,
                         'type' => '`$BOOLEAN`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'latitude',
                         'orig' => 'latitude',
@@ -136,7 +131,6 @@ class UvIndexApi2Config
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'longitude',
                         'orig' => 'longitude',
@@ -144,11 +138,9 @@ class UvIndexApi2Config
                         'type' => '`$NUMBER`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'timezone',
                         'orig' => 'timezone',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -174,10 +166,8 @@ class UvIndexApi2Config
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [

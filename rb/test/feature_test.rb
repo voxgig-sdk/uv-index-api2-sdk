@@ -15,7 +15,7 @@ require_relative "../UvIndexApi2_sdk"
 module UvIndexApi2FeatureHarness
   # True when this SDK was generated with the named feature.
   def self.has_feature?(name)
-    f = UvIndexApi2Config.make_config["feature"]
+    f = UvIndexApi2Config.shared_config["feature"]
     f.is_a?(Hash) && !f[name].nil?
   end
 

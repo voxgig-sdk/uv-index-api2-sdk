@@ -1,5 +1,8 @@
 -- UvIndexApi2 SDK configuration
 
+-- Build a fresh, fully materialised config table. Every call rebuilds the
+-- whole structure, so prefer require("config_shared") unless you need a
+-- private copy you intend to mutate.
 local function make_config()
   return {
     main = {
@@ -25,74 +28,52 @@ local function make_config()
       ["forecast"] = {
         ["fields"] = {
           {
-            ["active"] = true,
             ["name"] = "daily",
-            ["req"] = false,
             ["type"] = "`$ARRAY`",
-            ["index$"] = 0,
           },
           {
-            ["active"] = true,
             ["name"] = "hourly",
-            ["req"] = false,
             ["type"] = "`$ARRAY`",
-            ["index$"] = 1,
           },
           {
-            ["active"] = true,
             ["name"] = "latitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
-            ["index$"] = 2,
           },
           {
-            ["active"] = true,
             ["name"] = "longitude",
             ["req"] = true,
             ["type"] = "`$NUMBER`",
-            ["index$"] = 3,
           },
           {
-            ["active"] = true,
             ["name"] = "meta",
             ["req"] = true,
             ["type"] = "`$OBJECT`",
-            ["index$"] = 4,
           },
           {
-            ["active"] = true,
             ["name"] = "now",
             ["req"] = true,
             ["type"] = "`$OBJECT`",
-            ["index$"] = 5,
           },
           {
-            ["active"] = true,
             ["name"] = "ok",
             ["req"] = true,
             ["type"] = "`$BOOLEAN`",
-            ["index$"] = 6,
           },
           {
-            ["active"] = true,
             ["name"] = "timezone",
             ["req"] = true,
             ["type"] = "`$OBJECT`",
-            ["index$"] = 7,
           },
           {
-            ["active"] = true,
             ["name"] = "today",
             ["req"] = true,
             ["type"] = "`$OBJECT`",
-            ["index$"] = 8,
           },
           {
-            ["active"] = true,
             ["name"] = "tomorrow",
             ["req"] = true,
             ["type"] = "`$OBJECT`",
-            ["index$"] = 9,
           },
         },
         ["name"] = "forecast",
@@ -102,27 +83,21 @@ local function make_config()
             ["name"] = "list",
             ["points"] = {
               {
-                ["active"] = true,
                 ["args"] = {
                   ["query"] = {
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "daily",
                       ["orig"] = "daily",
-                      ["reqd"] = false,
                       ["type"] = "`$BOOLEAN`",
                     },
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "hourly",
                       ["orig"] = "hourly",
-                      ["reqd"] = false,
                       ["type"] = "`$BOOLEAN`",
                     },
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "latitude",
                       ["orig"] = "latitude",
@@ -130,7 +105,6 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "longitude",
                       ["orig"] = "longitude",
@@ -138,11 +112,9 @@ local function make_config()
                       ["type"] = "`$NUMBER`",
                     },
                     {
-                      ["active"] = true,
                       ["kind"] = "query",
                       ["name"] = "timezone",
                       ["orig"] = "timezone",
-                      ["reqd"] = false,
                       ["type"] = "`$STRING`",
                     },
                   },
@@ -168,10 +140,8 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-                ["index$"] = 0,
               },
             },
-            ["key$"] = "list",
           },
         },
         ["relations"] = {

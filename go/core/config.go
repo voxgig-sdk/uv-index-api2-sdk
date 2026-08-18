@@ -1,5 +1,12 @@
 package core
 
+import (
+	"sync"
+)
+
+// MakeConfig builds a fresh, fully materialised config map. Every call
+// rebuilds the whole structure, so prefer SharedConfig unless you need a
+// private copy you intend to mutate.
 func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
@@ -25,74 +32,52 @@ func MakeConfig() map[string]any {
 			"forecast": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "daily",
-						"req": false,
 						"type": "`$ARRAY`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "hourly",
-						"req": false,
 						"type": "`$ARRAY`",
-						"index$": 1,
 					},
 					map[string]any{
-						"active": true,
 						"name": "latitude",
 						"req": true,
 						"type": "`$NUMBER`",
-						"index$": 2,
 					},
 					map[string]any{
-						"active": true,
 						"name": "longitude",
 						"req": true,
 						"type": "`$NUMBER`",
-						"index$": 3,
 					},
 					map[string]any{
-						"active": true,
 						"name": "meta",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 4,
 					},
 					map[string]any{
-						"active": true,
 						"name": "now",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 5,
 					},
 					map[string]any{
-						"active": true,
 						"name": "ok",
 						"req": true,
 						"type": "`$BOOLEAN`",
-						"index$": 6,
 					},
 					map[string]any{
-						"active": true,
 						"name": "timezone",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 7,
 					},
 					map[string]any{
-						"active": true,
 						"name": "today",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 8,
 					},
 					map[string]any{
-						"active": true,
 						"name": "tomorrow",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 9,
 					},
 				},
 				"name": "forecast",
@@ -102,27 +87,21 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"query": []any{
 										map[string]any{
-											"active": true,
 											"kind": "query",
 											"name": "daily",
 											"orig": "daily",
-											"reqd": false,
 											"type": "`$BOOLEAN`",
 										},
 										map[string]any{
-											"active": true,
 											"kind": "query",
 											"name": "hourly",
 											"orig": "hourly",
-											"reqd": false,
 											"type": "`$BOOLEAN`",
 										},
 										map[string]any{
-											"active": true,
 											"kind": "query",
 											"name": "latitude",
 											"orig": "latitude",
@@ -130,7 +109,6 @@ func MakeConfig() map[string]any {
 											"type": "`$NUMBER`",
 										},
 										map[string]any{
-											"active": true,
 											"kind": "query",
 											"name": "longitude",
 											"orig": "longitude",
@@ -138,11 +116,9 @@ func MakeConfig() map[string]any {
 											"type": "`$NUMBER`",
 										},
 										map[string]any{
-											"active": true,
 											"kind": "query",
 											"name": "timezone",
 											"orig": "timezone",
-											"reqd": false,
 											"type": "`$STRING`",
 										},
 									},
@@ -168,7 +144,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -179,6 +154,24 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+var (
+	sharedConfigOnce sync.Once
+	sharedConfigVal  map[string]any
+)
+
+// SharedConfig returns the process-wide config, built once on first use.
+// The SDK reads the config on every request and never writes to it, so one
+// instance is shared by every client rather than rebuilt per client.
+//
+// The returned map is shared: treat it as read-only. Callers that need to
+// mutate should use MakeConfig, which always returns a fresh copy.
+func SharedConfig() map[string]any {
+	sharedConfigOnce.Do(func() {
+		sharedConfigVal = MakeConfig()
+	})
+	return sharedConfigVal
 }
 
 func makeFeature(name string) Feature {

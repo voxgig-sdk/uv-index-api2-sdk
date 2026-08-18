@@ -23,8 +23,8 @@ class UvIndexApi2SDK:
         utility = UvIndexApi2Utility()
         self._utility = utility
 
-        from uvindexapi2_sdk.config import make_config
-        config = make_config()
+        from uvindexapi2_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,
