@@ -98,10 +98,10 @@ fmt.Println(forecast.GetName()) // "forecast"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | `[]any` | No |  |
-| `hourly` | `[]any` | No |  |
-| `latitude` | `float64` | Yes |  |
-| `longitude` | `float64` | Yes |  |
+| `daily` | `[]any` | No | Daily UV Index forecast data. |
+| `hourly` | `[]any` | No | Hourly UV Index forecast data. |
+| `latitude` | `float64` | Yes | Latitude coordinate in decimal degrees. |
+| `longitude` | `float64` | Yes | Longitude coordinate in decimal degrees. |
 | `meta` | `map[string]any` | Yes |  |
 | `now` | `map[string]any` | Yes |  |
 | `ok` | `bool` | Yes |  |

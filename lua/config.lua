@@ -7,6 +7,9 @@ local function make_config()
   return {
     main = {
       name = "UvIndexApi2",
+      slug = "uv-index-api2",
+      version = "0.0.1",
+      target = "lua",
     },
     feature = {
       ["test"] = {
@@ -29,20 +32,24 @@ local function make_config()
         ["fields"] = {
           {
             ["name"] = "daily",
+            ["short"] = "Daily UV Index forecast data.",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "hourly",
+            ["short"] = "Hourly UV Index forecast data.",
             ["type"] = "`$ARRAY`",
           },
           {
             ["name"] = "latitude",
             ["req"] = true,
+            ["short"] = "Latitude coordinate in decimal degrees.",
             ["type"] = "`$NUMBER`",
           },
           {
             ["name"] = "longitude",
             ["req"] = true,
+            ["short"] = "Longitude coordinate in decimal degrees.",
             ["type"] = "`$NUMBER`",
           },
           {

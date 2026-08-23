@@ -237,10 +237,10 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `daily` |  |
-| `hourly` |  |
-| `latitude` |  |
-| `longitude` |  |
+| `daily` | Daily UV Index forecast data. |
+| `hourly` | Hourly UV Index forecast data. |
+| `latitude` | Latitude coordinate in decimal degrees. |
+| `longitude` | Longitude coordinate in decimal degrees. |
 | `meta` |  |
 | `now` |  |
 | `ok` |  |
@@ -271,10 +271,10 @@ Create an instance: `forecast = client.Forecast`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `daily` | `Array` |  |
-| `hourly` | `Array` |  |
-| `latitude` | `Float` |  |
-| `longitude` | `Float` |  |
+| `daily` | `Array` | Daily UV Index forecast data. |
+| `hourly` | `Array` | Hourly UV Index forecast data. |
+| `latitude` | `Float` | Latitude coordinate in decimal degrees. |
+| `longitude` | `Float` | Longitude coordinate in decimal degrees. |
 | `meta` | `Hash` |  |
 | `now` | `Hash` |  |
 | `ok` | `Boolean` |  |

@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -287,10 +287,10 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `daily` |  |
-| `hourly` |  |
-| `latitude` |  |
-| `longitude` |  |
+| `daily` | Daily UV Index forecast data. |
+| `hourly` | Hourly UV Index forecast data. |
+| `latitude` | Latitude coordinate in decimal degrees. |
+| `longitude` | Longitude coordinate in decimal degrees. |
 | `meta` |  |
 | `now` |  |
 | `ok` |  |
@@ -321,10 +321,10 @@ Create an instance: `const forecast = client.Forecast()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `daily` | `any[]` |  |
-| `hourly` | `any[]` |  |
-| `latitude` | `number` |  |
-| `longitude` | `number` |  |
+| `daily` | `any[]` | Daily UV Index forecast data. |
+| `hourly` | `any[]` | Hourly UV Index forecast data. |
+| `latitude` | `number` | Latitude coordinate in decimal degrees. |
+| `longitude` | `number` | Longitude coordinate in decimal degrees. |
 | `meta` | `Record<string, any>` |  |
 | `now` | `Record<string, any>` |  |
 | `ok` | `boolean` |  |

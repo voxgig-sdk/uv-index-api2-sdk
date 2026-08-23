@@ -8,21 +8,25 @@ main: kit: entity: forecast: {
     {
       name: "daily"
       req: false
+      short: "Daily UV Index forecast data."
       type: "`$ARRAY`"
     }
     {
       name: "hourly"
       req: false
+      short: "Hourly UV Index forecast data."
       type: "`$ARRAY`"
     }
     {
       name: "latitude"
       req: true
+      short: "Latitude coordinate in decimal degrees."
       type: "`$NUMBER`"
     }
     {
       name: "longitude"
       req: true
+      short: "Longitude coordinate in decimal degrees."
       type: "`$NUMBER`"
     }
     {

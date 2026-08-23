@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "UvIndexApi2",
+			"slug": "uv-index-api2",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -33,20 +36,24 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "daily",
+						"short": "Daily UV Index forecast data.",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "hourly",
+						"short": "Hourly UV Index forecast data.",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "latitude",
 						"req": true,
+						"short": "Latitude coordinate in decimal degrees.",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "longitude",
 						"req": true,
+						"short": "Longitude coordinate in decimal degrees.",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{

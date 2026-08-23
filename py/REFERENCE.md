@@ -87,10 +87,10 @@ forecast = client.Forecast()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | `list` | No |  |
-| `hourly` | `list` | No |  |
-| `latitude` | `float` | Yes |  |
-| `longitude` | `float` | Yes |  |
+| `daily` | `list` | No | Daily UV Index forecast data. |
+| `hourly` | `list` | No | Hourly UV Index forecast data. |
+| `latitude` | `float` | Yes | Latitude coordinate in decimal degrees. |
+| `longitude` | `float` | Yes | Longitude coordinate in decimal degrees. |
 | `meta` | `dict` | Yes |  |
 | `now` | `dict` | Yes |  |
 | `ok` | `bool` | Yes |  |

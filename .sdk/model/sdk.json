@@ -36,24 +36,28 @@
               "active": true,
               "name": "daily",
               "req": false,
+              "short": "Daily UV Index forecast data.",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "hourly",
               "req": false,
+              "short": "Hourly UV Index forecast data.",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "latitude",
               "req": true,
+              "short": "Latitude coordinate in decimal degrees.",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "longitude",
               "req": true,
+              "short": "Longitude coordinate in decimal degrees.",
               "type": "`$NUMBER`"
             },
             {

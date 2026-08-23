@@ -92,10 +92,10 @@ $forecast = $client->Forecast();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | `array` | No |  |
-| `hourly` | `array` | No |  |
-| `latitude` | `float` | Yes |  |
-| `longitude` | `float` | Yes |  |
+| `daily` | `array` | No | Daily UV Index forecast data. |
+| `hourly` | `array` | No | Hourly UV Index forecast data. |
+| `latitude` | `float` | Yes | Latitude coordinate in decimal degrees. |
+| `longitude` | `float` | Yes | Longitude coordinate in decimal degrees. |
 | `meta` | `array` | Yes |  |
 | `now` | `array` | Yes |  |
 | `ok` | `bool` | Yes |  |

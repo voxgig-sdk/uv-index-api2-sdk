@@ -247,10 +247,10 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `daily` |  |
-| `hourly` |  |
-| `latitude` |  |
-| `longitude` |  |
+| `daily` | Daily UV Index forecast data. |
+| `hourly` | Hourly UV Index forecast data. |
+| `latitude` | Latitude coordinate in decimal degrees. |
+| `longitude` | Longitude coordinate in decimal degrees. |
 | `meta` |  |
 | `now` |  |
 | `ok` |  |
@@ -281,10 +281,10 @@ Create an instance: `$forecast = $client->Forecast();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `daily` | `array` |  |
-| `hourly` | `array` |  |
-| `latitude` | `float` |  |
-| `longitude` | `float` |  |
+| `daily` | `array` | Daily UV Index forecast data. |
+| `hourly` | `array` | Hourly UV Index forecast data. |
+| `latitude` | `float` | Latitude coordinate in decimal degrees. |
+| `longitude` | `float` | Longitude coordinate in decimal degrees. |
 | `meta` | `array` |  |
 | `now` | `array` |  |
 | `ok` | `bool` |  |

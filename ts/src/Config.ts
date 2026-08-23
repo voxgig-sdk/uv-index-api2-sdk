@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'UvIndexApi2',
+        slug: "uv-index-api2",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -56,20 +67,24 @@ class Config {
       "fields": [
         {
           "name": "daily",
+          "short": "Daily UV Index forecast data.",
           "type": "`$ARRAY`"
         },
         {
           "name": "hourly",
+          "short": "Hourly UV Index forecast data.",
           "type": "`$ARRAY`"
         },
         {
           "name": "latitude",
           "req": true,
+          "short": "Latitude coordinate in decimal degrees.",
           "type": "`$NUMBER`"
         },
         {
           "name": "longitude",
           "req": true,
+          "short": "Longitude coordinate in decimal degrees.",
           "type": "`$NUMBER`"
         },
         {

@@ -6,7 +6,7 @@ The Golang SDK for the UvIndexApi2 API — an entity-oriented client using stand
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.Forecast(nil)` — each with the same small set of operations (`List`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -260,10 +260,10 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"daily"` |  |
-| `"hourly"` |  |
-| `"latitude"` |  |
-| `"longitude"` |  |
+| `"daily"` | Daily UV Index forecast data. |
+| `"hourly"` | Hourly UV Index forecast data. |
+| `"latitude"` | Latitude coordinate in decimal degrees. |
+| `"longitude"` | Longitude coordinate in decimal degrees. |
 | `"meta"` |  |
 | `"now"` |  |
 | `"ok"` |  |
@@ -294,10 +294,10 @@ Create an instance: `forecast := client.Forecast(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `daily` | `[]any` |  |
-| `hourly` | `[]any` |  |
-| `latitude` | `float64` |  |
-| `longitude` | `float64` |  |
+| `daily` | `[]any` | Daily UV Index forecast data. |
+| `hourly` | `[]any` | Hourly UV Index forecast data. |
+| `latitude` | `float64` | Latitude coordinate in decimal degrees. |
+| `longitude` | `float64` | Longitude coordinate in decimal degrees. |
 | `meta` | `map[string]any` |  |
 | `now` | `map[string]any` |  |
 | `ok` | `bool` |  |

@@ -243,10 +243,10 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `daily` |  |
-| `hourly` |  |
-| `latitude` |  |
-| `longitude` |  |
+| `daily` | Daily UV Index forecast data. |
+| `hourly` | Hourly UV Index forecast data. |
+| `latitude` | Latitude coordinate in decimal degrees. |
+| `longitude` | Longitude coordinate in decimal degrees. |
 | `meta` |  |
 | `now` |  |
 | `ok` |  |
@@ -277,10 +277,10 @@ Create an instance: `forecast = client.Forecast()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `daily` | `list` |  |
-| `hourly` | `list` |  |
-| `latitude` | `float` |  |
-| `longitude` | `float` |  |
+| `daily` | `list` | Daily UV Index forecast data. |
+| `hourly` | `list` | Hourly UV Index forecast data. |
+| `latitude` | `float` | Latitude coordinate in decimal degrees. |
+| `longitude` | `float` | Longitude coordinate in decimal degrees. |
 | `meta` | `dict` |  |
 | `now` | `dict` |  |
 | `ok` | `bool` |  |

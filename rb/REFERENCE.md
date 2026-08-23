@@ -93,10 +93,10 @@ forecast = client.Forecast
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | `Array` | No |  |
-| `hourly` | `Array` | No |  |
-| `latitude` | `Float` | Yes |  |
-| `longitude` | `Float` | Yes |  |
+| `daily` | `Array` | No | Daily UV Index forecast data. |
+| `hourly` | `Array` | No | Hourly UV Index forecast data. |
+| `latitude` | `Float` | Yes | Latitude coordinate in decimal degrees. |
+| `longitude` | `Float` | Yes | Longitude coordinate in decimal degrees. |
 | `meta` | `Hash` | Yes |  |
 | `now` | `Hash` | Yes |  |
 | `ok` | `Boolean` | Yes |  |

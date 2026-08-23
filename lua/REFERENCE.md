@@ -90,10 +90,10 @@ local forecast = client:Forecast(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | `table` | No |  |
-| `hourly` | `table` | No |  |
-| `latitude` | `number` | Yes |  |
-| `longitude` | `number` | Yes |  |
+| `daily` | `table` | No | Daily UV Index forecast data. |
+| `hourly` | `table` | No | Hourly UV Index forecast data. |
+| `latitude` | `number` | Yes | Latitude coordinate in decimal degrees. |
+| `longitude` | `number` | Yes | Longitude coordinate in decimal degrees. |
 | `meta` | `table` | Yes |  |
 | `now` | `table` | Yes |  |
 | `ok` | `boolean` | Yes |  |

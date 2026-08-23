@@ -116,10 +116,10 @@ const forecast = client.Forecast()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `daily` | `any[]` | No |  |
-| `hourly` | `any[]` | No |  |
-| `latitude` | `number` | Yes |  |
-| `longitude` | `number` | Yes |  |
+| `daily` | `any[]` | No | Daily UV Index forecast data. |
+| `hourly` | `any[]` | No | Hourly UV Index forecast data. |
+| `latitude` | `number` | Yes | Latitude coordinate in decimal degrees. |
+| `longitude` | `number` | Yes | Longitude coordinate in decimal degrees. |
 | `meta` | `Record<string, any>` | Yes |  |
 | `now` | `Record<string, any>` | Yes |  |
 | `ok` | `boolean` | Yes |  |

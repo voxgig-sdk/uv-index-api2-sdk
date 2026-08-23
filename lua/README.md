@@ -231,10 +231,10 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `daily` |  |
-| `hourly` |  |
-| `latitude` |  |
-| `longitude` |  |
+| `daily` | Daily UV Index forecast data. |
+| `hourly` | Hourly UV Index forecast data. |
+| `latitude` | Latitude coordinate in decimal degrees. |
+| `longitude` | Longitude coordinate in decimal degrees. |
 | `meta` |  |
 | `now` |  |
 | `ok` |  |
@@ -265,10 +265,10 @@ Create an instance: `local forecast = client:Forecast(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `daily` | `table` |  |
-| `hourly` | `table` |  |
-| `latitude` | `number` |  |
-| `longitude` | `number` |  |
+| `daily` | `table` | Daily UV Index forecast data. |
+| `hourly` | `table` | Hourly UV Index forecast data. |
+| `latitude` | `number` | Latitude coordinate in decimal degrees. |
+| `longitude` | `number` | Longitude coordinate in decimal degrees. |
 | `meta` | `table` |  |
 | `now` | `table` |  |
 | `ok` | `boolean` |  |
