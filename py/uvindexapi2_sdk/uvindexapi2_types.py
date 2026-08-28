@@ -32,14 +32,12 @@ class Forecast(ForecastRequired, total=False):
     hourly: list
 
 
-class ForecastListMatch(TypedDict, total=False):
-    daily: list
-    hourly: list
+class ForecastListMatchRequired(TypedDict):
     latitude: float
     longitude: float
-    meta: dict
-    now: dict
-    ok: bool
-    timezone: dict
-    today: dict
-    tomorrow: dict
+
+
+class ForecastListMatch(ForecastListMatchRequired, total=False):
+    daily: bool
+    hourly: bool
+    timezone: str

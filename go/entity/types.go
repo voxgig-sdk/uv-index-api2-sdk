@@ -28,16 +28,11 @@ type Forecast struct {
 
 // ForecastListMatch is the typed request payload for Forecast.ListTyped.
 type ForecastListMatch struct {
-	Daily *[]any `json:"daily,omitempty"`
-	Hourly *[]any `json:"hourly,omitempty"`
-	Latitude *float64 `json:"latitude,omitempty"`
-	Longitude *float64 `json:"longitude,omitempty"`
-	Meta *map[string]any `json:"meta,omitempty"`
-	Now *map[string]any `json:"now,omitempty"`
-	Ok *bool `json:"ok,omitempty"`
-	Timezone *map[string]any `json:"timezone,omitempty"`
-	Today *map[string]any `json:"today,omitempty"`
-	Tomorrow *map[string]any `json:"tomorrow,omitempty"`
+	Daily *bool `json:"daily,omitempty"`
+	Hourly *bool `json:"hourly,omitempty"`
+	Latitude float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
+	Timezone *string `json:"timezone,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

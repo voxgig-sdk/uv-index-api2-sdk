@@ -56,45 +56,25 @@ Forecast = Struct.new(
 # Request payload for Forecast#list.
 #
 # @!attribute [rw] daily
-#   @return [Array, nil]
-#
-# @!attribute [rw] hourly
-#   @return [Array, nil]
-#
-# @!attribute [rw] latitude
-#   @return [Float, nil]
-#
-# @!attribute [rw] longitude
-#   @return [Float, nil]
-#
-# @!attribute [rw] meta
-#   @return [Hash, nil]
-#
-# @!attribute [rw] now
-#   @return [Hash, nil]
-#
-# @!attribute [rw] ok
 #   @return [Boolean, nil]
 #
+# @!attribute [rw] hourly
+#   @return [Boolean, nil]
+#
+# @!attribute [rw] latitude
+#   @return [Float]
+#
+# @!attribute [rw] longitude
+#   @return [Float]
+#
 # @!attribute [rw] timezone
-#   @return [Hash, nil]
-#
-# @!attribute [rw] today
-#   @return [Hash, nil]
-#
-# @!attribute [rw] tomorrow
-#   @return [Hash, nil]
+#   @return [String, nil]
 ForecastListMatch = Struct.new(
   :daily,
   :hourly,
   :latitude,
   :longitude,
-  :meta,
-  :now,
-  :ok,
   :timezone,
-  :today,
-  :tomorrow,
   keyword_init: true
 )
 

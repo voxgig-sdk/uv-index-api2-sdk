@@ -30,15 +30,10 @@ class Forecast
 /** Request payload for Forecast#list. */
 class ForecastListMatch
 {
-    public ?array $daily = null;
-    public ?array $hourly = null;
-    public ?float $latitude = null;
-    public ?float $longitude = null;
-    public ?array $meta = null;
-    public ?array $now = null;
-    public ?bool $ok = null;
-    public ?array $timezone = null;
-    public ?array $today = null;
-    public ?array $tomorrow = null;
+    public ?bool $daily = null;
+    public ?bool $hourly = null;
+    public float $latitude;
+    public float $longitude;
+    public ?string $timezone = null;
 }
 
