@@ -142,10 +142,16 @@ module UvIndexApi2Config
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/v1/forecast",
-                  "parts" => [
-                    "api",
-                    "v1",
-                    "forecast",
+                  "segments" => [
+                    {
+                      "lit" => "api",
+                    },
+                    {
+                      "lit" => "v1",
+                    },
+                    {
+                      "lit" => "forecast",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -160,6 +166,11 @@ module UvIndexApi2Config
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "api",
+                    "v1",
+                    "forecast",
+                  ],
                 },
               ],
             },
