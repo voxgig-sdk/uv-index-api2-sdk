@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2'
+import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2-sdk'
 
 const client = new UvIndexApi2SDK()
 ```
@@ -421,7 +421,7 @@ uv-index-api2/
 Import the SDK from the package root:
 
 ```ts
-import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2'
+import { UvIndexApi2SDK } from '@voxgig-sdk/uv-index-api2-sdk'
 ```
 
 ### Entity state
