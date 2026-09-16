@@ -40,6 +40,8 @@ const node_path_1 = __importDefault(require("node:path"));
 const Fs = __importStar(require("node:fs"));
 const node_test_1 = require("node:test");
 const node_assert_1 = __importDefault(require("node:assert"));
+const live_runner_1 = require("../../live-runner");
+const live_entity_1 = require("../../live-entity");
 const __1 = require("../../..");
 const utility_1 = require("../../utility");
 // AFTER the imports on purpose: TypeScript hoists `import` above any
@@ -59,16 +61,12 @@ const utility_1 = require("../../utility");
     (0, node_test_1.test)('basic', async (t) => {
         const live = 'TRUE' === process.env.UV_INDEX_API2_TEST_LIVE;
         for (const op of ['list']) {
-            if ((0, utility_1.maybeSkipControl)(t, 'entityOp', 'forecast.' + op, live))
+            if (!live && (0, utility_1.maybeSkipControl)(t, 'entityOp', 'forecast.' + op, live))
                 return;
         }
         const setup = basicSetup();
-        // The basic flow consumes synthetic IDs and field values from the
-        // fixture (entity TestData.json). Those don't exist on the live API.
-        // Skip live runs unless the user provided a real ENTID env override.
-        if (setup.syntheticOnly) {
-            t.skip('live entity test uses synthetic IDs from fixture — set UV_INDEX_API2_TEST_FORECAST_ENTID JSON to run live');
-            return;
+        if (setup.live) {
+            return (0, live_entity_1.runLiveEntity)(setup, { "active": true, "alias": { "field": {} }, "fields": [{ "active": true, "name": "daily", "req": false, "short": "Daily UV Index forecast data.", "type": "`$ARRAY`", "index$": 0 }, { "active": true, "name": "hourly", "req": false, "short": "Hourly UV Index forecast data.", "type": "`$ARRAY`", "index$": 1 }, { "active": true, "name": "latitude", "req": true, "short": "Latitude coordinate in decimal degrees.", "type": "`$NUMBER`", "index$": 2 }, { "active": true, "name": "longitude", "req": true, "short": "Longitude coordinate in decimal degrees.", "type": "`$NUMBER`", "index$": 3 }, { "active": true, "name": "meta", "req": true, "type": "`$OBJECT`", "index$": 4 }, { "active": true, "name": "now", "req": true, "type": "`$OBJECT`", "index$": 5 }, { "active": true, "name": "ok", "req": true, "type": "`$BOOLEAN`", "index$": 6 }, { "active": true, "name": "timezone", "req": true, "type": "`$OBJECT`", "index$": 7 }, { "active": true, "name": "today", "req": true, "type": "`$OBJECT`", "index$": 8 }, { "active": true, "name": "tomorrow", "req": true, "type": "`$OBJECT`", "index$": 9 }], "name": "forecast", "op": { "list": { "input": "data", "name": "list", "points": [{ "active": true, "args": { "query": [{ "active": true, "kind": "query", "name": "daily", "orig": "daily", "reqd": false, "type": "`$BOOLEAN`", "index$": 0 }, { "active": true, "kind": "query", "name": "hourly", "orig": "hourly", "reqd": false, "type": "`$BOOLEAN`", "index$": 1 }, { "active": true, "kind": "query", "name": "latitude", "orig": "latitude", "reqd": true, "type": "`$NUMBER`", "index$": 2 }, { "active": true, "kind": "query", "name": "longitude", "orig": "longitude", "reqd": true, "type": "`$NUMBER`", "index$": 3 }, { "active": true, "kind": "query", "name": "timezone", "orig": "timezone", "reqd": false, "type": "`$STRING`", "index$": 4 }] }, "contract": { "id": "GET /api/v1/forecast", "json": "{\"operationId\":\"getApiV1Forecast\",\"parameters\":[{\"in\":\"query\",\"name\":\"latitude\",\"required\":true,\"schema\":{\"description\":\"Latitude coordinate in decimal degrees.\",\"error\":\"\\\"latitude\\\" must be a number between -90 and 90.\",\"maximum\":90,\"minimum\":-90,\"type\":\"number\"}},{\"in\":\"query\",\"name\":\"longitude\",\"required\":true,\"schema\":{\"description\":\"Longitude coordinate in decimal degrees.\",\"error\":\"\\\"longitude\\\" must be a number between -180 and 180.\",\"maximum\":180,\"minimum\":-180,\"type\":\"number\"}},{\"in\":\"query\",\"name\":\"timezone\",\"required\":false,\"schema\":{\"description\":\"IANA timezone identifier (e.g., \\\"America/New_York\\\"), \\\"UTC\\\", or \\\"Auto\\\" to infer from coordinates. Defaults to \\\"UTC\\\".\",\"type\":\"string\"}},{\"in\":\"query\",\"name\":\"daily\",\"required\":false,\"schema\":{\"description\":\"Include daily UV Index forecast data.\",\"error\":\"\\\"daily\\\" must be a boolean value (\\\"true\\\" or \\\"false\\\").\",\"type\":\"boolean\"}},{\"in\":\"query\",\"name\":\"hourly\",\"required\":false,\"schema\":{\"description\":\"Include hourly UV Index forecast data.\",\"error\":\"\\\"hourly\\\" must be a boolean value (\\\"true\\\" or \\\"false\\\").\",\"type\":\"boolean\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"daily\":{\"description\":\"Daily UV Index forecast data.\",\"items\":{\"properties\":{\"date\":{\"description\":\"Date in YYYY-MM-DD format.\",\"type\":\"string\"},\"max\":{\"properties\":{\"time\":{\"description\":\"Time of maximum UV Index for the day in HH:mm:ss format.\",\"type\":\"string\"},\"uv_index\":{\"description\":\"Maximum UV Index value for the day.\",\"type\":\"number\"}},\"required\":[\"time\",\"uv_index\"],\"type\":\"object\"}},\"required\":[\"date\",\"max\"],\"type\":\"object\"},\"type\":\"array\"},\"hourly\":{\"description\":\"Hourly UV Index forecast data.\",\"items\":{\"properties\":{\"date\":{\"description\":\"Date for this hour in YYYY-MM-DD format.\",\"type\":\"string\"},\"time\":{\"description\":\"Time for this hour in HH:mm:ss format.\",\"type\":\"string\"},\"uv_index\":{\"description\":\"UV Index value for this hour.\",\"type\":\"number\"}},\"required\":[\"date\",\"time\",\"uv_index\"],\"type\":\"object\"},\"type\":\"array\"},\"latitude\":{\"description\":\"Latitude coordinate in decimal degrees.\",\"type\":\"number\"},\"longitude\":{\"description\":\"Longitude coordinate in decimal degrees.\",\"type\":\"number\"},\"meta\":{\"properties\":{\"license\":{\"properties\":{\"id\":{\"description\":\"License identifier in SPDX format.\",\"type\":\"string\"},\"name\":{\"description\":\"License name.\",\"type\":\"string\"},\"url\":{\"description\":\"License URL.\",\"type\":\"string\"}},\"required\":[\"id\",\"name\",\"url\"],\"type\":\"object\"},\"source\":{\"properties\":{\"attribution\":{\"description\":\"Suggested attribution text.\",\"type\":\"string\"},\"url\":{\"description\":\"Source URL.\",\"type\":\"string\"}},\"required\":[\"attribution\",\"url\"],\"type\":\"object\"}},\"required\":[\"source\",\"license\"],\"type\":\"object\"},\"now\":{\"properties\":{\"date\":{\"description\":\"Current date in YYYY-MM-DD format.\",\"type\":\"string\"},\"time\":{\"description\":\"Current time in HH:mm:ss format.\",\"type\":\"string\"},\"uv_index\":{\"description\":\"Current UV Index value.\",\"type\":\"number\"}},\"required\":[\"date\",\"time\",\"uv_index\"],\"type\":\"object\"},\"ok\":{\"const\":true,\"type\":\"boolean\"},\"timezone\":{\"properties\":{\"id\":{\"description\":\"IANA timezone identifier used for all times.\",\"type\":\"string\"},\"name\":{\"description\":\"Human-readable timezone name.\",\"type\":\"string\"}},\"required\":[\"id\",\"name\"],\"type\":\"object\"},\"today\":{\"properties\":{\"date\":{\"description\":\"Today's date in YYYY-MM-DD format.\",\"type\":\"string\"},\"max\":{\"properties\":{\"time\":{\"description\":\"Time of maximum UV Index today in HH:mm:ss format.\",\"type\":\"string\"},\"uv_index\":{\"description\":\"Maximum UV Index value for today.\",\"type\":\"number\"}},\"required\":[\"time\",\"uv_index\"],\"type\":\"object\"}},\"required\":[\"date\",\"max\"],\"type\":\"object\"},\"tomorrow\":{\"properties\":{\"date\":{\"description\":\"Tomorrow's date in YYYY-MM-DD format.\",\"type\":\"string\"},\"max\":{\"properties\":{\"time\":{\"description\":\"Time of maximum UV Index tomorrow in HH:mm:ss format.\",\"type\":\"string\"},\"uv_index\":{\"description\":\"Maximum UV Index value for tomorrow.\",\"type\":\"number\"}},\"required\":[\"time\",\"uv_index\"],\"type\":\"object\"}},\"required\":[\"date\",\"max\"],\"type\":\"object\"}},\"required\":[\"ok\",\"latitude\",\"longitude\",\"timezone\",\"now\",\"today\",\"tomorrow\",\"meta\"],\"type\":\"object\"}}},\"description\":\"Response for status 200\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable error message.\",\"type\":\"string\"},\"ok\":{\"const\":false,\"type\":\"boolean\"}},\"required\":[\"ok\",\"message\"],\"type\":\"object\"}}},\"description\":\"Response for status 400\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable error message.\",\"type\":\"string\"},\"ok\":{\"const\":false,\"type\":\"boolean\"}},\"required\":[\"ok\",\"message\"],\"type\":\"object\"}}},\"description\":\"Response for status 500\"},\"503\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"message\":{\"description\":\"Human-readable error message.\",\"type\":\"string\"},\"ok\":{\"const\":false,\"type\":\"boolean\"}},\"required\":[\"ok\",\"message\"],\"type\":\"object\"}}},\"description\":\"Response for status 503\"}},\"securitySource\":\"unspecified\"}", "source": "openapi3", "version": 1 }, "kind": "http", "method": "GET", "orig": "/api/v1/forecast", "segments": [{ "lit": "api" }, { "lit": "v1" }, { "lit": "forecast" }], "select": { "exist": ["daily", "hourly", "latitude", "longitude", "timezone"] }, "transform": { "req": "`reqdata`", "res": "`body`" }, "index$": 0 }], "key$": "list" } }, "relations": { "ancestors": [] }, "key$": "forecast", "name__orig": "forecast", "Name": "Forecast", "name_": "forecast", "name-": "forecast", "NAME": "FORECAST", "index$": 0 }, { "active": true, "entity": "forecast", "key$": "BasicForecastFlow", "kind": "basic", "name": "BasicForecastFlow", "param": {}, "step": [{ "active": true, "data": {}, "input": {}, "match": {}, "op": "list", "spec": [], "valid": [{ "apply": "ItemExists", "def": { "ref": "forecast_ref01" } }], "index$": 0 }] }, 'Forecast');
         }
         const client = setup.client;
         const struct = setup.struct;
@@ -101,12 +99,6 @@ function basicSetup(extra) {
                 '`$VAL`': ['`$FORMAT`', 'upper', '`$COPY`']
             }]
     });
-    // Detect whether the user provided a real ENTID JSON via env var. The
-    // basic flow consumes synthetic IDs from the fixture file; without an
-    // override those synthetic IDs reach the live API and 4xx. Surface this
-    // to the test so it can skip rather than fail.
-    const idmapEnvVal = process.env['UV_INDEX_API2_TEST_FORECAST_ENTID'];
-    const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{');
     const env = (0, utility_1.envOverride)({
         'UV_INDEX_API2_TEST_FORECAST_ENTID': idmap,
         'UV_INDEX_API2_TEST_LIVE': 'FALSE',
@@ -114,7 +106,13 @@ function basicSetup(extra) {
     });
     idmap = env['UV_INDEX_API2_TEST_FORECAST_ENTID'];
     const live = 'TRUE' === env.UV_INDEX_API2_TEST_LIVE;
+    const transport = (0, live_runner_1.createLiveTransport)();
     if (live) {
+        const rawIds = process.env['UV_INDEX_API2_TEST_FORECAST_ENTID'];
+        idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {};
+        if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+            throw new Error('Live ENTID must be a JSON object');
+        }
         client = new __1.UvIndexApi2SDK(merge([
             // FIRST, so the generated fields below win: sdk-test-control.json's
             // test.client.options adds to the live client, it does not redirect it.
@@ -125,7 +123,8 @@ function basicSetup(extra) {
             // argument at all - so a bare 'extra' silently discarded the apikey
             // and server values above and handed the SDK undefined. Harmless
             // while there was nothing in that object; not harmless now.
-            extra || {}
+            extra || {},
+            { system: { fetch: transport.fetch } }
         ]));
     }
     const setup = {
@@ -137,7 +136,7 @@ function basicSetup(extra) {
         data: entityData,
         explain: 'TRUE' === env.UV_INDEX_API2_TEST_EXPLAIN,
         live,
-        syntheticOnly: live && !idmapOverridden,
+        transport,
         now: Date.now(),
     };
     return setup;
