@@ -19,7 +19,6 @@ import type {
   ForecastListMatch,
 } from '../UvIndexApi2Types'
 
-// TODO: needs Entity superclass
 class ForecastEntity extends UvIndexApi2EntityBase<Forecast> {
 
   constructor(client: UvIndexApi2SDK, entopts: any) {

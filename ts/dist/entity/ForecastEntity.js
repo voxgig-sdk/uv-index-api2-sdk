@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ForecastEntity = void 0;
 const UvIndexApi2EntityBase_1 = require("../UvIndexApi2EntityBase");
-// TODO: needs Entity superclass
 class ForecastEntity extends UvIndexApi2EntityBase_1.UvIndexApi2EntityBase {
     constructor(client, entopts) {
         super(client, entopts);

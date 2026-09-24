@@ -99,55 +99,65 @@ module UvIndexApi2Config
           "fields" => [
             {
               "name" => "daily",
-              "short" => "Daily UV Index forecast data.",
+              "title" => "Daily",
               "type" => "`$ARRAY`",
+              "short" => "Daily UV Index forecast data.",
             },
             {
               "name" => "hourly",
-              "short" => "Hourly UV Index forecast data.",
+              "title" => "Hourly",
               "type" => "`$ARRAY`",
+              "short" => "Hourly UV Index forecast data.",
             },
             {
               "name" => "latitude",
+              "title" => "Latitude",
+              "type" => "`$NUMBER`",
               "req" => true,
               "short" => "Latitude coordinate in decimal degrees.",
-              "type" => "`$NUMBER`",
             },
             {
               "name" => "longitude",
+              "title" => "Longitude",
+              "type" => "`$NUMBER`",
               "req" => true,
               "short" => "Longitude coordinate in decimal degrees.",
-              "type" => "`$NUMBER`",
             },
             {
               "name" => "meta",
-              "req" => true,
+              "title" => "Meta",
               "type" => "`$OBJECT`",
+              "req" => true,
             },
             {
               "name" => "now",
-              "req" => true,
+              "title" => "Now",
               "type" => "`$OBJECT`",
+              "req" => true,
             },
             {
               "name" => "ok",
-              "req" => true,
+              "title" => "Ok",
               "type" => "`$BOOLEAN`",
+              "req" => true,
             },
             {
               "name" => "timezone",
-              "req" => true,
+              "title" => "Timezone",
               "type" => "`$OBJECT`",
+              "req" => true,
             },
             {
               "name" => "today",
-              "req" => true,
+              "title" => "Today",
               "type" => "`$OBJECT`",
+              "req" => true,
             },
             {
               "name" => "tomorrow",
-              "req" => true,
+              "title" => "Tomorrow",
               "type" => "`$OBJECT`",
+              "req" => true,
             },
           ],
           "name" => "forecast",
@@ -157,42 +167,6 @@ module UvIndexApi2Config
               "name" => "list",
               "points" => [
                 {
-                  "args" => {
-                    "query" => [
-                      {
-                        "kind" => "query",
-                        "name" => "daily",
-                        "orig" => "daily",
-                        "type" => "`$BOOLEAN`",
-                      },
-                      {
-                        "kind" => "query",
-                        "name" => "hourly",
-                        "orig" => "hourly",
-                        "type" => "`$BOOLEAN`",
-                      },
-                      {
-                        "kind" => "query",
-                        "name" => "latitude",
-                        "orig" => "latitude",
-                        "reqd" => true,
-                        "type" => "`$NUMBER`",
-                      },
-                      {
-                        "kind" => "query",
-                        "name" => "longitude",
-                        "orig" => "longitude",
-                        "reqd" => true,
-                        "type" => "`$NUMBER`",
-                      },
-                      {
-                        "kind" => "query",
-                        "name" => "timezone",
-                        "orig" => "timezone",
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/v1/forecast",
@@ -207,6 +181,52 @@ module UvIndexApi2Config
                       "lit" => "forecast",
                     },
                   ],
+                  "parts" => [
+                    "api",
+                    "v1",
+                    "forecast",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "query" => [
+                      {
+                        "name" => "daily",
+                        "orig" => "daily",
+                        "type" => "`$BOOLEAN`",
+                        "kind" => "query",
+                      },
+                      {
+                        "name" => "hourly",
+                        "orig" => "hourly",
+                        "type" => "`$BOOLEAN`",
+                        "kind" => "query",
+                      },
+                      {
+                        "name" => "latitude",
+                        "orig" => "latitude",
+                        "type" => "`$NUMBER`",
+                        "kind" => "query",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "longitude",
+                        "orig" => "longitude",
+                        "type" => "`$NUMBER`",
+                        "kind" => "query",
+                        "reqd" => true,
+                      },
+                      {
+                        "name" => "timezone",
+                        "orig" => "timezone",
+                        "type" => "`$STRING`",
+                        "kind" => "query",
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "daily",
@@ -216,15 +236,6 @@ module UvIndexApi2Config
                       "timezone",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "api",
-                    "v1",
-                    "forecast",
-                  ],
                 },
               ],
             },

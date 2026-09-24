@@ -91,55 +91,65 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "daily",
-						"short": "Daily UV Index forecast data.",
+						"title": "Daily",
 						"type": "`$ARRAY`",
+						"short": "Daily UV Index forecast data.",
 					},
 					map[string]any{
 						"name": "hourly",
-						"short": "Hourly UV Index forecast data.",
+						"title": "Hourly",
 						"type": "`$ARRAY`",
+						"short": "Hourly UV Index forecast data.",
 					},
 					map[string]any{
 						"name": "latitude",
+						"title": "Latitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "Latitude coordinate in decimal degrees.",
-						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "longitude",
+						"title": "Longitude",
+						"type": "`$NUMBER`",
 						"req": true,
 						"short": "Longitude coordinate in decimal degrees.",
-						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "meta",
-						"req": true,
+						"title": "Meta",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "now",
-						"req": true,
+						"title": "Now",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "ok",
-						"req": true,
+						"title": "Ok",
 						"type": "`$BOOLEAN`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "timezone",
-						"req": true,
+						"title": "Timezone",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "today",
-						"req": true,
+						"title": "Today",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "tomorrow",
-						"req": true,
+						"title": "Tomorrow",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 				},
 				"name": "forecast",
@@ -149,42 +159,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "daily",
-											"orig": "daily",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "hourly",
-											"orig": "hourly",
-											"type": "`$BOOLEAN`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "latitude",
-											"orig": "latitude",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "longitude",
-											"orig": "longitude",
-											"reqd": true,
-											"type": "`$NUMBER`",
-										},
-										map[string]any{
-											"kind": "query",
-											"name": "timezone",
-											"orig": "timezone",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/v1/forecast",
@@ -199,6 +173,52 @@ func MakeConfig() map[string]any {
 										"lit": "forecast",
 									},
 								},
+								"parts": []any{
+									"api",
+									"v1",
+									"forecast",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"query": []any{
+										map[string]any{
+											"name": "daily",
+											"orig": "daily",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "hourly",
+											"orig": "hourly",
+											"type": "`$BOOLEAN`",
+											"kind": "query",
+										},
+										map[string]any{
+											"name": "latitude",
+											"orig": "latitude",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "longitude",
+											"orig": "longitude",
+											"type": "`$NUMBER`",
+											"kind": "query",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "timezone",
+											"orig": "timezone",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
 								"select": map[string]any{
 									"exist": []any{
 										"daily",
@@ -207,15 +227,6 @@ func MakeConfig() map[string]any {
 										"longitude",
 										"timezone",
 									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
-								"parts": []any{
-									"api",
-									"v1",
-									"forecast",
 								},
 							},
 						},

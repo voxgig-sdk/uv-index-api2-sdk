@@ -116,55 +116,65 @@ def make_config():
         "fields": [
           {
             "name": "daily",
-            "short": "Daily UV Index forecast data.",
+            "title": "Daily",
             "type": "`$ARRAY`",
+            "short": "Daily UV Index forecast data.",
           },
           {
             "name": "hourly",
-            "short": "Hourly UV Index forecast data.",
+            "title": "Hourly",
             "type": "`$ARRAY`",
+            "short": "Hourly UV Index forecast data.",
           },
           {
             "name": "latitude",
+            "title": "Latitude",
+            "type": "`$NUMBER`",
             "req": True,
             "short": "Latitude coordinate in decimal degrees.",
-            "type": "`$NUMBER`",
           },
           {
             "name": "longitude",
+            "title": "Longitude",
+            "type": "`$NUMBER`",
             "req": True,
             "short": "Longitude coordinate in decimal degrees.",
-            "type": "`$NUMBER`",
           },
           {
             "name": "meta",
-            "req": True,
+            "title": "Meta",
             "type": "`$OBJECT`",
+            "req": True,
           },
           {
             "name": "now",
-            "req": True,
+            "title": "Now",
             "type": "`$OBJECT`",
+            "req": True,
           },
           {
             "name": "ok",
-            "req": True,
+            "title": "Ok",
             "type": "`$BOOLEAN`",
+            "req": True,
           },
           {
             "name": "timezone",
-            "req": True,
+            "title": "Timezone",
             "type": "`$OBJECT`",
+            "req": True,
           },
           {
             "name": "today",
-            "req": True,
+            "title": "Today",
             "type": "`$OBJECT`",
+            "req": True,
           },
           {
             "name": "tomorrow",
-            "req": True,
+            "title": "Tomorrow",
             "type": "`$OBJECT`",
+            "req": True,
           },
         ],
         "name": "forecast",
@@ -174,42 +184,6 @@ def make_config():
             "name": "list",
             "points": [
               {
-                "args": {
-                  "query": [
-                    {
-                      "kind": "query",
-                      "name": "daily",
-                      "orig": "daily",
-                      "type": "`$BOOLEAN`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "hourly",
-                      "orig": "hourly",
-                      "type": "`$BOOLEAN`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "latitude",
-                      "orig": "latitude",
-                      "reqd": True,
-                      "type": "`$NUMBER`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "longitude",
-                      "orig": "longitude",
-                      "reqd": True,
-                      "type": "`$NUMBER`",
-                    },
-                    {
-                      "kind": "query",
-                      "name": "timezone",
-                      "orig": "timezone",
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/v1/forecast",
@@ -224,6 +198,52 @@ def make_config():
                     "lit": "forecast",
                   },
                 ],
+                "parts": [
+                  "api",
+                  "v1",
+                  "forecast",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "query": [
+                    {
+                      "name": "daily",
+                      "orig": "daily",
+                      "type": "`$BOOLEAN`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "hourly",
+                      "orig": "hourly",
+                      "type": "`$BOOLEAN`",
+                      "kind": "query",
+                    },
+                    {
+                      "name": "latitude",
+                      "orig": "latitude",
+                      "type": "`$NUMBER`",
+                      "kind": "query",
+                      "reqd": True,
+                    },
+                    {
+                      "name": "longitude",
+                      "orig": "longitude",
+                      "type": "`$NUMBER`",
+                      "kind": "query",
+                      "reqd": True,
+                    },
+                    {
+                      "name": "timezone",
+                      "orig": "timezone",
+                      "type": "`$STRING`",
+                      "kind": "query",
+                    },
+                  ],
+                },
                 "select": {
                   "exist": [
                     "daily",
@@ -233,15 +253,6 @@ def make_config():
                     "timezone",
                   ],
                 },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
-                "parts": [
-                  "api",
-                  "v1",
-                  "forecast",
-                ],
               },
             ],
           },

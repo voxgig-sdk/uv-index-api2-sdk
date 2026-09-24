@@ -43,7 +43,7 @@ local forecasts, err = client:Forecast():list()
 if err then error(err) end
 
 for _, item in ipairs(forecasts) do
-  print(item["daily"])
+  print(item)
 end
 ```
 

@@ -1,7 +1,7 @@
 // Typed models for the UvIndexApi2 SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,16 +14,6 @@ import (
 
 // Forecast is the typed data model for the forecast entity.
 type Forecast struct {
-	Daily *[]any `json:"daily,omitempty"`
-	Hourly *[]any `json:"hourly,omitempty"`
-	Latitude float64 `json:"latitude"`
-	Longitude float64 `json:"longitude"`
-	Meta map[string]any `json:"meta"`
-	Now map[string]any `json:"now"`
-	Ok bool `json:"ok"`
-	Timezone map[string]any `json:"timezone"`
-	Today map[string]any `json:"today"`
-	Tomorrow map[string]any `json:"tomorrow"`
 }
 
 // ForecastListMatch is the typed request payload for Forecast.ListTyped.

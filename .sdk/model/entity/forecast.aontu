@@ -1,0 +1,157 @@
+# Entity: forecast
+
+main: kit: entity: forecast: {
+
+  alias: field: {}
+
+  fields: {
+    daily: {
+      h: "Daily"
+      n: "daily"
+      r: false
+      sh: "Daily UV Index forecast data."
+      t: "`$ARRAY`"
+    }
+    hourly: {
+      h: "Hourly"
+      n: "hourly"
+      r: false
+      sh: "Hourly UV Index forecast data."
+      t: "`$ARRAY`"
+    }
+    latitude: {
+      h: "Latitude"
+      n: "latitude"
+      r: true
+      sh: "Latitude coordinate in decimal degrees."
+      t: "`$NUMBER`"
+    }
+    longitude: {
+      h: "Longitude"
+      n: "longitude"
+      r: true
+      sh: "Longitude coordinate in decimal degrees."
+      t: "`$NUMBER`"
+    }
+    meta: {
+      h: "Meta"
+      n: "meta"
+      r: true
+      t: "`$OBJECT`"
+    }
+    now: {
+      h: "Now"
+      n: "now"
+      r: true
+      t: "`$OBJECT`"
+    }
+    ok: {
+      h: "Ok"
+      n: "ok"
+      r: true
+      t: "`$BOOLEAN`"
+    }
+    timezone: {
+      h: "Timezone"
+      n: "timezone"
+      r: true
+      t: "`$OBJECT`"
+    }
+    today: {
+      h: "Today"
+      n: "today"
+      r: true
+      t: "`$OBJECT`"
+    }
+    tomorrow: {
+      h: "Tomorrow"
+      n: "tomorrow"
+      r: true
+      t: "`$OBJECT`"
+    }
+  }
+
+  name: "forecast"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/v1/forecast"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            query: [
+              {
+                k: "query"
+                n: "daily"
+                or: "daily"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+              {
+                k: "query"
+                n: "hourly"
+                or: "hourly"
+                r: false
+                t: "`$BOOLEAN`"
+              }
+              {
+                k: "query"
+                n: "latitude"
+                or: "latitude"
+                r: true
+                t: "`$NUMBER`"
+              }
+              {
+                k: "query"
+                n: "longitude"
+                or: "longitude"
+                r: true
+                t: "`$NUMBER`"
+              }
+              {
+                k: "query"
+                n: "timezone"
+                or: "timezone"
+                r: false
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/v1/forecast"
+          q: {
+            exist: [
+              "daily"
+              "hourly"
+              "latitude"
+              "longitude"
+              "timezone"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "v1"
+            }
+            {
+              lit: "forecast"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}
