@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 UvIndexApi2Utility::setRegistrar(function (UvIndexApi2Utility $u): void {
     $u->clean = [UvIndexApi2Clean::class, 'call'];
+    $u->clean_add = [UvIndexApi2Clean::class, 'add'];
+    $u->clean_explain = [UvIndexApi2Done::class, 'clean_explain'];
     $u->done = [UvIndexApi2Done::class, 'call'];
     $u->make_error = [UvIndexApi2MakeError::class, 'call'];
     $u->feature_add = [UvIndexApi2FeatureAdd::class, 'call'];

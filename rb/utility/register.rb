@@ -33,6 +33,8 @@ require_relative 'transform_response'
 
 UvIndexApi2Utility.registrar = ->(u) {
   u.clean = UvIndexApi2Utilities::Clean
+  u.clean_add = UvIndexApi2Utilities::CleanAdd
+  u.clean_explain = UvIndexApi2Utilities::CleanExplain
   u.done = UvIndexApi2Utilities::Done
   u.make_error = UvIndexApi2Utilities::MakeError
   u.feature_add = UvIndexApi2Utilities::FeatureAdd
