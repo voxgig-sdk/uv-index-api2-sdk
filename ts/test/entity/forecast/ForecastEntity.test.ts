@@ -9,7 +9,7 @@ import { createLiveTransport } from '../../live-runner'
 import { runLiveEntity } from '../../live-entity'
 
 
-import { UvIndexApi2SDK, BaseFeature, stdutil } from '../../..'
+import { UvIndexApi2SDK, BaseFeature, config, stdutil } from '../../..'
 
 import {
   envOverride,
@@ -41,6 +41,64 @@ describe('ForecastEntity', async () => {
   })
 
 
+  class FailHook extends BaseFeature {
+    name = 'failhook'
+    version = '0.0.1'
+    active = true
+    unexpected = 0
+    init() { }
+    PreSpec() { throw new Error('forecast hook failed') }
+    PreUnexpected() { this.unexpected++ }
+  }
+
+  test('stream-error', async () => {
+    const offline = { net: { offline: true } }
+    await assert.rejects(async () => {
+      for await (const _item of UvIndexApi2SDK.test(offline).Forecast().stream('list')) { }
+    }, /offline/)
+
+    for await (const _item of UvIndexApi2SDK.test(offline).Forecast()
+      .stream('list', undefined, { ctrl: { throw: false } })) { }
+
+    if (null != (config as any).feature?.rbac) {
+      const denied = UvIndexApi2SDK.test(undefined, { feature: { rbac: { active: true, deny: true } } })
+      await assert.rejects(async () => {
+        for await (const _item of denied.Forecast().stream('list')) { }
+      }, (err: any) => 'rbac_denied' === err.code)
+    }
+  })
+
+  test('stream-ctrl', async () => {
+    const explain: any = {}
+    const ctrl: any = { explain }
+    for await (const _item of UvIndexApi2SDK.test().Forecast().stream('list', undefined, { ctrl })) { }
+    assert.deepStrictEqual(Object.keys(ctrl), ['explain'])
+    assert(explain === ctrl.explain && 0 < Object.keys(explain).length)
+  })
+
+  test('unexpected', async () => {
+    const hook = new FailHook()
+    const client = new UvIndexApi2SDK({ feature: { test: { active: true } }, extend: [hook] })
+    await assert.rejects(client.Forecast().list(), /hook failed/)
+    assert(0 < hook.unexpected)
+
+    const fired = hook.unexpected
+    assert.strictEqual(await client.Forecast().list(undefined, { throw: false }), undefined)
+    assert(fired < hook.unexpected)
+  })
+
+  test('validate', async (t) => {
+    if (null == (config as any).feature?.validate) {
+      t.skip('feature not present in this SDK: validate')
+      return
+    }
+    const client = UvIndexApi2SDK.test(undefined, { feature: { validate: { active: true } } })
+    await assert.rejects(client.Forecast().list({"daily":"x","latitude":1,"longitude":1} as any),
+      (err: any) => 'validate_failed' === err.code)
+  })
+
+
+
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.UV_INDEX_API2_TEST_LIVE
@@ -51,7 +109,7 @@ describe('ForecastEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"daily":{"a":true,"h":"Daily","n":"daily","r":false,"sh":"Daily UV Index forecast data.","t":"`$ARRAY`","key$":"daily","index$":0},"hourly":{"a":true,"h":"Hourly","n":"hourly","r":false,"sh":"Hourly UV Index forecast data.","t":"`$ARRAY`","key$":"hourly","index$":1},"latitude":{"a":true,"h":"Latitude","n":"latitude","r":true,"sh":"Latitude coordinate in decimal degrees.","t":"`$NUMBER`","key$":"latitude","index$":2},"longitude":{"a":true,"h":"Longitude","n":"longitude","r":true,"sh":"Longitude coordinate in decimal degrees.","t":"`$NUMBER`","key$":"longitude","index$":3},"meta":{"a":true,"h":"Meta","n":"meta","r":true,"t":"`$OBJECT`","key$":"meta","index$":4},"now":{"a":true,"h":"Now","n":"now","r":true,"t":"`$OBJECT`","key$":"now","index$":5},"ok":{"a":true,"h":"Ok","n":"ok","r":true,"t":"`$BOOLEAN`","key$":"ok","index$":6},"timezone":{"a":true,"h":"Timezone","n":"timezone","r":true,"t":"`$OBJECT`","key$":"timezone","index$":7},"today":{"a":true,"h":"Today","n":"today","r":true,"t":"`$OBJECT`","key$":"today","index$":8},"tomorrow":{"a":true,"h":"Tomorrow","n":"tomorrow","r":true,"t":"`$OBJECT`","key$":"tomorrow","index$":9}},"name":"forecast","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /api/v1/forecast","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"daily","or":"daily","r":false,"t":"`$BOOLEAN`","index$":0},{"a":true,"k":"query","n":"hourly","or":"hourly","r":false,"t":"`$BOOLEAN`","index$":1},{"a":true,"k":"query","n":"latitude","or":"latitude","r":true,"t":"`$NUMBER`","index$":2},{"a":true,"k":"query","n":"longitude","or":"longitude","r":true,"t":"`$NUMBER`","index$":3},{"a":true,"k":"query","n":"timezone","or":"timezone","r":false,"t":"`$STRING`","index$":4}]},"k":"http","m":"GET","o":"/api/v1/forecast","q":{"exist":["daily","hourly","latitude","longitude","timezone"]},"r":{},"s":[{"lit":"api"},{"lit":"v1"},{"lit":"forecast"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"forecast","name__orig":"forecast","Name":"Forecast","name_":"forecast","name-":"forecast","NAME":"FORECAST","index$":0}, {"active":true,"entity":"forecast","key$":"BasicForecastFlow","kind":"basic","name":"BasicForecastFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"forecast_ref01"}}],"index$":0}]}, 'Forecast', {"GET /api/v1/forecast":{"protocol":"http","parameters":[{"name":"latitude","in":"query","required":true,"schema":{"minimum":-90,"maximum":90,"description":"Latitude coordinate in decimal degrees.","error":"\"latitude\" must be a number between -90 and 90.","type":"number"},"index$":0},{"name":"longitude","in":"query","required":true,"schema":{"minimum":-180,"maximum":180,"description":"Longitude coordinate in decimal degrees.","error":"\"longitude\" must be a number between -180 and 180.","type":"number"},"index$":1},{"name":"timezone","in":"query","required":false,"schema":{"description":"IANA timezone identifier (e.g., \"America/New_York\"), \"UTC\", or \"Auto\" to infer from coordinates. Defaults to \"UTC\".","type":"string"},"index$":2},{"name":"daily","in":"query","required":false,"schema":{"description":"Include daily UV Index forecast data.","error":"\"daily\" must be a boolean value (\"true\" or \"false\").","type":"boolean"},"index$":3},{"name":"hourly","in":"query","required":false,"schema":{"description":"Include hourly UV Index forecast data.","error":"\"hourly\" must be a boolean value (\"true\" or \"false\").","type":"boolean"},"index$":4}]}})
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"daily":{"a":true,"h":"Daily","n":"daily","r":false,"sh":"Daily UV Index forecast data.","t":"`$ARRAY`","key$":"daily","index$":0},"hourly":{"a":true,"h":"Hourly","n":"hourly","r":false,"sh":"Hourly UV Index forecast data.","t":"`$ARRAY`","key$":"hourly","index$":1},"latitude":{"a":true,"h":"Latitude","n":"latitude","r":true,"sh":"Latitude coordinate in decimal degrees.","t":"`$NUMBER`","key$":"latitude","index$":2},"longitude":{"a":true,"h":"Longitude","n":"longitude","r":true,"sh":"Longitude coordinate in decimal degrees.","t":"`$NUMBER`","key$":"longitude","index$":3},"meta":{"a":true,"h":"Meta","n":"meta","r":true,"t":"`$OBJECT`","key$":"meta","index$":4},"now":{"a":true,"h":"Now","n":"now","r":true,"t":"`$OBJECT`","key$":"now","index$":5},"ok":{"a":true,"h":"Ok","n":"ok","r":true,"t":"`$BOOLEAN`","key$":"ok","index$":6},"timezone":{"a":true,"h":"Timezone","n":"timezone","r":true,"t":"`$OBJECT`","key$":"timezone","index$":7},"today":{"a":true,"h":"Today","n":"today","r":true,"t":"`$OBJECT`","key$":"today","index$":8},"tomorrow":{"a":true,"h":"Tomorrow","n":"tomorrow","r":true,"t":"`$OBJECT`","key$":"tomorrow","index$":9}},"name":"forecast","op":{"list":{"input":"data","name":"list","points":[{"a":true,"co":{"id":"GET /api/v1/forecast","source":"openapi3","version":2},"g":{"query":[{"a":true,"k":"query","n":"daily","or":"daily","r":false,"t":"`$BOOLEAN`","index$":0},{"a":true,"k":"query","n":"hourly","or":"hourly","r":false,"t":"`$BOOLEAN`","index$":1},{"a":true,"k":"query","n":"latitude","or":"latitude","r":true,"t":"`$NUMBER`","index$":2},{"a":true,"k":"query","n":"longitude","or":"longitude","r":true,"t":"`$NUMBER`","index$":3},{"a":true,"k":"query","n":"timezone","or":"timezone","r":false,"t":"`$STRING`","index$":4}]},"k":"http","m":"GET","o":"/api/v1/forecast","q":{"exist":["latitude","longitude"]},"r":{},"rs":{"kind":"json","media":"application/json"},"s":[{"lit":"api"},{"lit":"v1"},{"lit":"forecast"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"forecast","name__orig":"forecast","Name":"Forecast","name_":"forecast","name-":"forecast","NAME":"FORECAST","index$":0}, {"active":true,"entity":"forecast","key$":"BasicForecastFlow","kind":"basic","name":"BasicForecastFlow","param":{},"step":[{"a":true,"d":{},"i":{},"m":{},"o":"list","s":[],"v":[{"apply":"ItemExists","def":{"ref":"forecast_ref01"}}],"index$":0}]}, 'Forecast', {"GET /api/v1/forecast":{"protocol":"http","parameters":[{"name":"latitude","in":"query","required":true,"schema":{"minimum":-90,"maximum":90,"description":"Latitude coordinate in decimal degrees.","error":"\"latitude\" must be a number between -90 and 90.","type":"number"},"index$":0},{"name":"longitude","in":"query","required":true,"schema":{"minimum":-180,"maximum":180,"description":"Longitude coordinate in decimal degrees.","error":"\"longitude\" must be a number between -180 and 180.","type":"number"},"index$":1},{"name":"timezone","in":"query","required":false,"schema":{"description":"IANA timezone identifier (e.g., \"America/New_York\"), \"UTC\", or \"Auto\" to infer from coordinates. Defaults to \"UTC\".","type":"string"},"index$":2},{"name":"daily","in":"query","required":false,"schema":{"description":"Include daily UV Index forecast data.","error":"\"daily\" must be a boolean value (\"true\" or \"false\").","type":"boolean"},"index$":3},{"name":"hourly","in":"query","required":false,"schema":{"description":"Include hourly UV Index forecast data.","error":"\"hourly\" must be a boolean value (\"true\" or \"false\").","type":"boolean"},"index$":4}]}}, { strict: LIVE_STRICT, t })
     }
     const client = setup.client
     const struct = setup.struct
@@ -72,6 +130,12 @@ describe('ForecastEntity', async () => {
 })
 
 
+
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true
 
 function basicSetup(extra?: any) {
   // TODO: fix test def options

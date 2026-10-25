@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -190,12 +191,14 @@ func MakeConfig() map[string]any {
 											"orig": "daily",
 											"type": "`$BOOLEAN`",
 											"kind": "query",
+											"field": true,
 										},
 										map[string]any{
 											"name": "hourly",
 											"orig": "hourly",
 											"type": "`$BOOLEAN`",
 											"kind": "query",
+											"field": true,
 										},
 										map[string]any{
 											"name": "latitude",
@@ -203,6 +206,7 @@ func MakeConfig() map[string]any {
 											"type": "`$NUMBER`",
 											"kind": "query",
 											"reqd": true,
+											"field": true,
 										},
 										map[string]any{
 											"name": "longitude",
@@ -210,23 +214,26 @@ func MakeConfig() map[string]any {
 											"type": "`$NUMBER`",
 											"kind": "query",
 											"reqd": true,
+											"field": true,
 										},
 										map[string]any{
 											"name": "timezone",
 											"orig": "timezone",
 											"type": "`$STRING`",
 											"kind": "query",
+											"field": true,
 										},
 									},
 								},
 								"select": map[string]any{
 									"exist": []any{
-										"daily",
-										"hourly",
 										"latitude",
 										"longitude",
-										"timezone",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

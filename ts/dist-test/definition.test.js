@@ -16,19 +16,45 @@ const PLAN = [
         "path": "/api/v1/forecast",
         "args": [],
         "select": {
-            "daily": "v1",
-            "hourly": "v1",
             "latitude": "v1",
             "longitude": "v1",
+            "daily": "v1",
+            "hourly": "v1",
             "timezone": "v1"
         },
         "headers": [],
+        "cookies": [],
+        "responseMedia": [
+            "application/json"
+        ],
         "query": [
             "latitude",
             "longitude",
             "timezone",
             "daily",
             "hourly"
+        ],
+        "queryArgs": [
+            {
+                "name": "daily",
+                "wire": "daily"
+            },
+            {
+                "name": "hourly",
+                "wire": "hourly"
+            },
+            {
+                "name": "latitude",
+                "wire": "latitude"
+            },
+            {
+                "name": "longitude",
+                "wire": "longitude"
+            },
+            {
+                "name": "timezone",
+                "wire": "timezone"
+            }
         ],
         "auth": null,
         "status": 200,
@@ -76,13 +102,13 @@ const PLAN = [
                 }
             ],
             "meta": {
+                "source": {
+                    "attribution": "x",
+                    "url": "x"
+                },
                 "license": {
                     "id": "x",
                     "name": "x",
-                    "url": "x"
-                },
-                "source": {
-                    "attribution": "x",
                     "url": "x"
                 }
             }

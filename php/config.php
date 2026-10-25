@@ -93,6 +93,7 @@ class UvIndexApi2Config
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -212,12 +213,14 @@ class UvIndexApi2Config
                         'orig' => 'daily',
                         'type' => '`$BOOLEAN`',
                         'kind' => 'query',
+                        'field' => true,
                       ],
                       [
                         'name' => 'hourly',
                         'orig' => 'hourly',
                         'type' => '`$BOOLEAN`',
                         'kind' => 'query',
+                        'field' => true,
                       ],
                       [
                         'name' => 'latitude',
@@ -225,6 +228,7 @@ class UvIndexApi2Config
                         'type' => '`$NUMBER`',
                         'kind' => 'query',
                         'reqd' => true,
+                        'field' => true,
                       ],
                       [
                         'name' => 'longitude',
@@ -232,23 +236,26 @@ class UvIndexApi2Config
                         'type' => '`$NUMBER`',
                         'kind' => 'query',
                         'reqd' => true,
+                        'field' => true,
                       ],
                       [
                         'name' => 'timezone',
                         'orig' => 'timezone',
                         'type' => '`$STRING`',
                         'kind' => 'query',
+                        'field' => true,
                       ],
                     ],
                   ],
                   'select' => [
                     'exist' => [
-                      'daily',
-                      'hourly',
                       'latitude',
                       'longitude',
-                      'timezone',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],

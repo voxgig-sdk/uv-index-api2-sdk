@@ -102,6 +102,7 @@ class Config {
       },
       "optspec": {
         "clearTimer": "`$FUNCTION`",
+        "now": "`$FUNCTION`",
         "setTimer": "`$FUNCTION`"
       },
       "strict": false,
@@ -230,44 +231,50 @@ class Config {
                     "name": "daily",
                     "orig": "daily",
                     "type": "`$BOOLEAN`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   },
                   {
                     "name": "hourly",
                     "orig": "hourly",
                     "type": "`$BOOLEAN`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   },
                   {
                     "name": "latitude",
                     "orig": "latitude",
                     "type": "`$NUMBER`",
                     "kind": "query",
-                    "reqd": true
+                    "reqd": true,
+                    "field": true
                   },
                   {
                     "name": "longitude",
                     "orig": "longitude",
                     "type": "`$NUMBER`",
                     "kind": "query",
-                    "reqd": true
+                    "reqd": true,
+                    "field": true
                   },
                   {
                     "name": "timezone",
                     "orig": "timezone",
                     "type": "`$STRING`",
-                    "kind": "query"
+                    "kind": "query",
+                    "field": true
                   }
                 ]
               },
               "select": {
                 "exist": [
-                  "daily",
-                  "hourly",
                   "latitude",
-                  "longitude",
-                  "timezone"
+                  "longitude"
                 ]
+              },
+              "response": {
+                "kind": "json",
+                "media": "application/json"
               }
             }
           ]

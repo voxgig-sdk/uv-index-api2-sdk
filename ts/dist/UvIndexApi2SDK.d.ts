@@ -7,6 +7,19 @@ import { UvIndexApi2EntityBase } from './UvIndexApi2EntityBase';
 import { Utility } from './utility/Utility';
 import { BaseFeature } from './feature/base/BaseFeature';
 declare const stdutil: Utility;
+type DirectResult = {
+    ok: false;
+    err: any;
+    status?: undefined;
+    headers?: undefined;
+    data?: undefined;
+} | {
+    ok: boolean;
+    status: number;
+    headers: any;
+    data: any;
+    err?: any;
+};
 declare class UvIndexApi2SDK {
     _mode: string;
     _options: any;
@@ -17,32 +30,8 @@ declare class UvIndexApi2SDK {
     options(): any;
     utility(): any;
     prepare(fetchargs?: any): Promise<any>;
-    direct(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    } | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    }>;
-    _rawRequest(fetchargs?: any): Promise<Error | {
-        ok: boolean;
-        err: any;
-        status?: undefined;
-        headers?: undefined;
-        data?: undefined;
-    } | {
-        ok: boolean;
-        status: number;
-        headers: any;
-        data: any;
-        err?: undefined;
-    }>;
+    direct(fetchargs?: any): Promise<DirectResult>;
+    _rawRequest(fetchargs?: any): Promise<DirectResult>;
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     Forecast(entopts?: Record<string, any>): ForecastEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): UvIndexApi2SDK;
@@ -55,3 +44,4 @@ declare class UvIndexApi2SDK {
 }
 declare const SDK: typeof UvIndexApi2SDK;
 export { stdutil, config, BaseFeature, UvIndexApi2EntityBase, UvIndexApi2SDK, SDK, };
+export type { DirectResult };

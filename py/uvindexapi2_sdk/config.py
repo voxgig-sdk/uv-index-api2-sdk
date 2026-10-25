@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -215,12 +216,14 @@ def make_config():
                       "orig": "daily",
                       "type": "`$BOOLEAN`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "hourly",
                       "orig": "hourly",
                       "type": "`$BOOLEAN`",
                       "kind": "query",
+                      "field": True,
                     },
                     {
                       "name": "latitude",
@@ -228,6 +231,7 @@ def make_config():
                       "type": "`$NUMBER`",
                       "kind": "query",
                       "reqd": True,
+                      "field": True,
                     },
                     {
                       "name": "longitude",
@@ -235,23 +239,26 @@ def make_config():
                       "type": "`$NUMBER`",
                       "kind": "query",
                       "reqd": True,
+                      "field": True,
                     },
                     {
                       "name": "timezone",
                       "orig": "timezone",
                       "type": "`$STRING`",
                       "kind": "query",
+                      "field": True,
                     },
                   ],
                 },
                 "select": {
                   "exist": [
-                    "daily",
-                    "hourly",
                     "latitude",
                     "longitude",
-                    "timezone",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],

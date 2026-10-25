@@ -3,5 +3,15 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "Daily UV Index forecast data.",
+      "Get current and forecasted UV Index data for any location worldwide.",
+      "Hourly UV Index forecast data.",
+      "Latitude coordinate in decimal degrees.",
+      "Longitude coordinate in decimal degrees.",
+      "Response for status 200"
+    ]
+  }
 }

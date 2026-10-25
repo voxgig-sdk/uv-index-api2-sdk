@@ -79,6 +79,7 @@ module UvIndexApi2Config
           },
           "optspec" => {
             "clearTimer" => "`$FUNCTION`",
+            "now" => "`$FUNCTION`",
             "setTimer" => "`$FUNCTION`",
           },
           "strict" => false,
@@ -198,12 +199,14 @@ module UvIndexApi2Config
                         "orig" => "daily",
                         "type" => "`$BOOLEAN`",
                         "kind" => "query",
+                        "field" => true,
                       },
                       {
                         "name" => "hourly",
                         "orig" => "hourly",
                         "type" => "`$BOOLEAN`",
                         "kind" => "query",
+                        "field" => true,
                       },
                       {
                         "name" => "latitude",
@@ -211,6 +214,7 @@ module UvIndexApi2Config
                         "type" => "`$NUMBER`",
                         "kind" => "query",
                         "reqd" => true,
+                        "field" => true,
                       },
                       {
                         "name" => "longitude",
@@ -218,23 +222,26 @@ module UvIndexApi2Config
                         "type" => "`$NUMBER`",
                         "kind" => "query",
                         "reqd" => true,
+                        "field" => true,
                       },
                       {
                         "name" => "timezone",
                         "orig" => "timezone",
                         "type" => "`$STRING`",
                         "kind" => "query",
+                        "field" => true,
                       },
                     ],
                   },
                   "select" => {
                     "exist" => [
-                      "daily",
-                      "hourly",
                       "latitude",
                       "longitude",
-                      "timezone",
                     ],
+                  },
+                  "response" => {
+                    "kind" => "json",
+                    "media" => "application/json",
                   },
                 },
               ],

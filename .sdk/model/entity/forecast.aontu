@@ -125,12 +125,13 @@ main: kit: entity: forecast: {
           o: "/api/v1/forecast"
           q: {
             exist: [
-              "daily"
-              "hourly"
               "latitude"
               "longitude"
-              "timezone"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
